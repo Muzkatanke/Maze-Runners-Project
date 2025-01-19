@@ -14,7 +14,7 @@ public class Map
    {
       { Cell.Wall, "#" },
       { Cell.Floor, "." },
-      { Cell.Trap, "T" },
+      { Cell.Trap, "C" },
       { Cell.Obstacle, "O" },
    };
 
@@ -101,16 +101,16 @@ public class Map
          if(currentPlayer == 0)
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
-            Program.Harry.Xpos = newCurrentPlayerXpos;
-            Program.Harry.Ypos = newCurrentPlayerYpos;
-            Program.Harry.MovesLeft--;
+            Program.Snow.Xpos = newCurrentPlayerXpos;
+            Program.Snow.Ypos = newCurrentPlayerYpos;
+            Program.Snow.MovesLeft--;
          }
          else
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
-            Program.Ron.Xpos = newCurrentPlayerXpos;
-            Program.Ron.Ypos = newCurrentPlayerYpos;
-            Program.Ron.MovesLeft--;
+            Program.Tyrion.Xpos = newCurrentPlayerXpos;
+            Program.Tyrion.Ypos = newCurrentPlayerYpos;
+            Program.Tyrion.MovesLeft--;
          }
       }
    }
