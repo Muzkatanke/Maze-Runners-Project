@@ -13,7 +13,7 @@ public class Map
    public static Dictionary<Cell, string> CellSymbols = new Dictionary<Cell, string>
    {
       { Cell.Wall, "🔲" },
-      { Cell.Floor, "🍃" },
+      { Cell.Floor, "💠" },
       { Cell.Trap, "💣" },
       { Cell.Obstacle, "🚫" },
       { Cell.Throne, "👑"}
@@ -33,7 +33,7 @@ public class Map
       { Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Wall, Cell.Wall, Cell.Throne, Cell.Wall, Cell.Wall },
    };
 
-   public static void PrintMaze(Cell[,] maze, Player.Player player1, Player.Player player2)
+   public static void PrintMaze(Cell[,] maze, List<Player.Player> Players)
    {
       Console.Clear();
 
@@ -41,7 +41,6 @@ public class Map
       int cols = maze.GetLength(1);
 
       var table = new Table();
-
       table.Border(TableBorder.Horizontal);
 
       for (int j = 0; j < cols; j++)
@@ -54,13 +53,13 @@ public class Map
          var rowContent = new List<string>();
          for (int j = 0; j < cols; j++)
          {
-            if (i == player1.Xpos && j == player1.Ypos)
+            if (i == Players[0].Xpos && j == Players[0].Ypos)
             {
-               rowContent.Add($"[green]{player1.Symbol}[/]");
+               rowContent.Add(Players[0].Symbol);
             }
-            else if (i == player2.Xpos && j == player2.Ypos)
+            else if (i == Players[1].Xpos && j == Players[1].Ypos)
             {
-               rowContent.Add($"[red]{player2.Symbol}[/]");
+               rowContent.Add(Players[1].Symbol);
             }
             else rowContent.Add(CellSymbols[maze[i, j]].ToString());
          }
@@ -108,16 +107,16 @@ public class Map
          if (currentPlayer == 0)
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
-            Program.Snow.Xpos = newCurrentPlayerXpos;
-            Program.Snow.Ypos = newCurrentPlayerYpos;
-            Program.Snow.MovesLeft--;
+            Program.Players[0].Xpos = newCurrentPlayerXpos;
+            Program.Players[0].Ypos = newCurrentPlayerYpos;
+            Program.Players[0].MovesLeft--;
          }
          else
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
-            Program.Tyrion.Xpos = newCurrentPlayerXpos;
-            Program.Tyrion.Ypos = newCurrentPlayerYpos;
-            Program.Tyrion.MovesLeft--;
+            Program.Players[1].Xpos = newCurrentPlayerXpos;
+            Program.Players[1].Ypos = newCurrentPlayerYpos;
+            Program.Players[1].MovesLeft--;
          }
       }
 

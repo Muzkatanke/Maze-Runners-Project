@@ -31,7 +31,7 @@ public class Program
             {
                 Players[1].MovesLeft = Players[1].Speed;
                 Console.Clear();
-                Map.PrintMaze(Map.maze, Players[0], Players[1]);
+                Map.PrintMaze(Map.maze, Players);
 
                 AnsiConsole.WriteLine($"Current PLayer: {Players[0].Symbol}");
                 AnsiConsole.WriteLine($"Moves Left: {Players[0].MovesLeft}");
@@ -47,7 +47,7 @@ public class Program
             {
                 Players[0].MovesLeft =Players[0].Speed;
                 Console.Clear();
-                Map.PrintMaze(Map.maze, Players[0],Players[1]);
+                Map.PrintMaze(Map.maze, Players);
                 AnsiConsole.WriteLine($"Current PLayer: {Players[1].Symbol}");
                 AnsiConsole.WriteLine($"Moves Left: {Players[1].MovesLeft}");
                 AnsiConsole.Write(new Markup("Press [blue]<Start>[/] to use your hability"));
