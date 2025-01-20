@@ -43,6 +43,7 @@ public class Menu
             Program.Arya,
             Program.Brienne,
         };
+        
 
         var characterSelection1 = AnsiConsole.Prompt(
             new SelectionPrompt<Player>()

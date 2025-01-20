@@ -5,17 +5,18 @@ namespace Game.Map;
 
 public enum Cell
 {
-   Wall, Floor, Trap, Obstacle,
+   Wall, Floor, Trap, Obstacle, Throne
 };
 
 public class Map
 {
    public static Dictionary<Cell, string> CellSymbols = new Dictionary<Cell, string>
    {
-      { Cell.Wall, "#" },
-      { Cell.Floor, "." },
-      { Cell.Trap, "C" },
-      { Cell.Obstacle, "O" },
+      { Cell.Wall, "🔲" },
+      { Cell.Floor, "🍃" },
+      { Cell.Trap, "💣" },
+      { Cell.Obstacle, "🚫" },
+      { Cell.Throne, "👑"}
    };
 
    public static Cell[,] maze = new Cell[10, 10]
@@ -29,7 +30,7 @@ public class Map
       { Cell.Wall, Cell.Floor, Cell.Floor, Cell.Obstacle, Cell.Floor,Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Floor, Cell.Trap, Cell.Floor,Cell.Obstacle, Cell.Trap, Cell.Floor, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Wall, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall },
+      { Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Wall, Cell.Wall, Cell.Throne, Cell.Wall, Cell.Wall },
    };
 
    public static void PrintMaze(Cell[,] maze, Player.Player player1, Player.Player player2)
@@ -74,7 +75,7 @@ public class Map
       AnsiConsole.Write(panel);
 
    }
-   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos,  int currentPlayerYpos, int currentPlayer)
+   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer)
    {
 
       int newCurrentPlayerXpos = currentPlayerXpos;
@@ -96,9 +97,15 @@ public class Map
             break;
       }
 
+      if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Throne)
+      {
+         Console.Clear();
+         AnsiConsole.Write(new Markup("[blue]Game Over![/]"));
+         Environment.Exit(0);
+      }
       if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos))
       {
-         if(currentPlayer == 0)
+         if (currentPlayer == 0)
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
             Program.Snow.Xpos = newCurrentPlayerXpos;
@@ -113,6 +120,7 @@ public class Map
             Program.Tyrion.MovesLeft--;
          }
       }
+
    }
 
    public static bool Collision(int newCurrentPlayerXpos, int newCurrentPlayerYpos)
@@ -123,6 +131,5 @@ public class Map
       }
       return maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Wall;
    }
-
 }
 
