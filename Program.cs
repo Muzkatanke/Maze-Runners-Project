@@ -8,14 +8,13 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Program
 {
-    public static Player Snow = new Player(0, 0, "🐺", 3, 3, 3, 3, 3, "El Bastardo de Invernalia Jon Snow. (Atributos: Fuerza = 3, Agilidad = 3, Intelecto = 3)");
-    public static Player Tyrion = new Player(0, 1, "🦁", 2, 2, 1, 1, 5, "Mano del Rey Tyrion Lannister. Atributos: (Fuerza = 1, Agilidad = 2, Intelecto = 3)");
-    public static Player Daenerys = new Player(1, 0, "🐉", 3, 3, 1, 2, 4, "Khaleesi Daenerys Targaryen. Atributos: (Fuerza = 1, Agilidad = 2, Intelecto = 4)");
-    public static Player Arya = new Player(1, 1, "🗡️", 4, 4, 2, 5, 4, "La niña ciega Arya Stark. (Atributos: Fuerza = 2, Agilidad = 5, Intelecto = 4)");
-    public static Player Brienne = new Player(2, 1, "🛡️", 2, 2, 5, 2, 2, "La Doncella de Tarth Brienne of Tarth. (Atributos: Fuerza-3, Agilidad-3, Intelecto-3)");
+    public static Player Snow = new Player(0, 0, "🐺", 3, 3, 3, 3, 3);
+    public static Player Tyrion = new Player(0, 1, "🦁", 2, 2, 1, 1, 5);
+    public static Player Daenerys = new Player(1, 0, "🐉", 3, 3, 1, 2, 4);
+    public static Player Arya = new Player(1, 1, "🗡️", 4, 4, 2, 5, 4);
+    public static Player Brienne = new Player(2, 1, "🛡️", 2, 2, 5, 2, 2);
 
-
-    public static List<Player> Players = new List<Player> { };
+    public static List<Player> Players = new List<Player>();
 
     public static void Main(string[] args)
     {
@@ -30,33 +29,33 @@ public class Program
         {
             if (currentPlayer == 0)
             {
-                Tyrion.MovesLeft = Tyrion.Speed;
+                Players[1].MovesLeft = Players[1].Speed;
                 Console.Clear();
-                Map.PrintMaze(Map.maze, Snow, Tyrion);
+                Map.PrintMaze(Map.maze, Players[0], Players[1]);
 
-                AnsiConsole.WriteLine("Current PLayer: Snow");
-                AnsiConsole.WriteLine($"Moves Left: {Snow.MovesLeft}");
+                AnsiConsole.WriteLine($"Current PLayer: {Players[0].Symbol}");
+                AnsiConsole.WriteLine($"Moves Left: {Players[0].MovesLeft}");
                 AnsiConsole.Write(new Markup("Press [blue]<Start>[/] to use your hability"));
 
                 pressedKey = Console.ReadKey(true);
-                Map.MovePlayer(pressedKey.Key, Snow.Xpos, Snow.Ypos, 0);
+                Map.MovePlayer(pressedKey.Key, Players[0].Xpos, Players[0].Ypos, 0);
             }
-            if (Snow.MovesLeft == 0) currentPlayer = 1;
+            if (Players[0].MovesLeft == 0) currentPlayer = 1;
 
 
             if (currentPlayer == 1)
             {
-                Snow.MovesLeft = Snow.Speed;
+                Players[0].MovesLeft =Players[0].Speed;
                 Console.Clear();
-                Map.PrintMaze(Map.maze, Snow, Tyrion);
-                AnsiConsole.WriteLine("Current PLayer: Tyrion");
-                AnsiConsole.WriteLine($"Moves Left: {Tyrion.MovesLeft}");
+                Map.PrintMaze(Map.maze, Players[0],Players[1]);
+                AnsiConsole.WriteLine($"Current PLayer: {Players[1].Symbol}");
+                AnsiConsole.WriteLine($"Moves Left: {Players[1].MovesLeft}");
                 AnsiConsole.Write(new Markup("Press [blue]<Start>[/] to use your hability"));
 
                 pressedKey = Console.ReadKey(true);
-                Map.MovePlayer(pressedKey.Key, Tyrion.Xpos, Tyrion.Ypos, 1);
+                Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1);
             }
-            if (Tyrion.MovesLeft == 0) currentPlayer = 0;
+            if (Players[1].MovesLeft == 0) currentPlayer = 0;
 
         } while (pressedKey.Key != ConsoleKey.Escape);
     }

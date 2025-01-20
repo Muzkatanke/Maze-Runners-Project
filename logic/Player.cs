@@ -10,9 +10,8 @@ public class Player
     public int Strength;
     public int Agility;
     public int Intellect;
-    public string Description;
 
-    public Player(int x, int y, string symbol, int speed, int cd, int strength, int agility, int intellect, string description)
+    public Player(int x, int y, string symbol, int speed, int cd, int strength, int agility, int intellect)
     {
         Xpos = x;
         Ypos = y;
@@ -23,6 +22,5 @@ public class Player
         Strength = strength;
         Agility = agility;
         Intellect = intellect;
-        Description = description;
     }
 }
