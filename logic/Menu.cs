@@ -1,5 +1,6 @@
 using Spectre.Console;
 using Game.Player;
+using NAudio.Wave;
 public class Menu
 {
 
@@ -12,7 +13,7 @@ public class Menu
             "Opciones",
             "Salir",
         };
-        
+
         var selection = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("Selecciona una opción:")
@@ -39,11 +40,11 @@ public class Menu
         Console.Clear();
         List<string> characters = new List<string>
         {
-            "[italic]Winterfell's Bastard[/] [bold white][underline]Jon Snow[/][/]",
+            "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]",
             "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]",
-            "[italic]Khaleesi[/] [bold red][underline]Daenerys Targaryen[/][/]",
             "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]",
             "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]",
+            "[italic]Daenerys Stormborn of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]",
         };
 
         var characterSelection1 = AnsiConsole.Prompt(
@@ -75,14 +76,11 @@ public class Menu
 
         switch (characterSelection1)
         {
-            case "[italic]Winterfell's Bastard[/] [bold white][underline]Jon Snow[/][/]":
+            case "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]":
                 Program.Players.Add(Program.Snow);
                 break;
             case "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]":
                 Program.Players.Add(Program.Tyrion);
-                break;
-            case "[italic]Khaleesi[/] [bold red][underline]Daenerys Targaryen[/][/]":
-                Program.Players.Add(Program.Daenerys);
                 break;
             case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]":
                 Program.Players.Add(Program.Arya);
@@ -90,23 +88,26 @@ public class Menu
             case "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]":
                 Program.Players.Add(Program.Robert);
                 break;
+            case "[italic]Daenerys Stormborn of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]":
+                Program.Players.Add(Program.Daenerys);
+                break;
         }
         switch (characterSelection2)
         {
-            case "[italic]Winterfell's Bastard[/] [bold white][underline]Jon Snow[/][/]":
+            case "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]":
                 Program.Players.Add(Program.Snow);
                 break;
             case "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]":
                 Program.Players.Add(Program.Tyrion);
-                break;
-            case "[italic]Khaleesi[/] [bold red][underline]Daenerys Targaryen[/][/]":
-                Program.Players.Add(Program.Daenerys);
                 break;
             case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]":
                 Program.Players.Add(Program.Arya);
                 break;
             case "[italic]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/]":
                 Program.Players.Add(Program.Robert);
+                break;
+            case "[italic]Daenerys Stormborn of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]":
+                Program.Players.Add(Program.Daenerys);
                 break;
         }
     }
@@ -125,4 +126,28 @@ public class Menu
                 .AddItem($"{Players[1].Symbol} [bold]Health[/]", Players[1].Health, Color.Red));
         }
     }
+    public static void MainTitle()
+    {
+        AnsiConsole.Write(
+            new FigletText("Maze of Thrones")
+                .Centered()
+                .Color(Color.Gold1));
+    }
+
+    public static void TurnOnTheMusic(string musicRoute)
+    {
+        try
+        {
+            Program.waveOutDevice = new WaveOutEvent();
+            Program.audioFileReader = new AudioFileReader(musicRoute);
+            Program.waveOutDevice.Init(Program.audioFileReader);
+            Program.waveOutDevice.Play();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("Error al reproducir la música: " + ex.Message);
+        }
+    }
+
 }
+

@@ -5,7 +5,7 @@ namespace Game.Map;
 
 public enum Cell
 {
-   Wall, Floor, Trap, Obstacle, Throne
+   Wall, Floor, Trap, Obstacle, Throne, DornishRed, ArborGold
 };
 
 public class Map
@@ -16,18 +16,20 @@ public class Map
       { Cell.Floor, "💠" },
       { Cell.Trap, "💣" },
       { Cell.Obstacle, "🚫" },
-      { Cell.Throne, "👑"}
+      { Cell.Throne, "👑"},
+      { Cell.DornishRed, "🍷"},
+      { Cell.ArborGold, "🍸"},
    };
 
    public static Cell[,] maze = new Cell[10, 10]
    {
       { Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Trap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Trap, Cell.Obstacle, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
+      { Cell.Trap, Cell.Obstacle, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.DornishRed, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Floor, Cell.Wall, Cell.Floor, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
+      { Cell.Wall, Cell.Floor, Cell.Wall, Cell.DornishRed, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Floor, Cell.Floor, Cell.Obstacle, Cell.Floor,Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
+      { Cell.Wall, Cell.ArborGold, Cell.Floor, Cell.Obstacle, Cell.Floor,Cell.Floor, Cell.Floor, Cell.ArborGold, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Floor, Cell.Trap, Cell.Floor,Cell.Obstacle, Cell.Trap, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Wall, Cell.Wall, Cell.Throne, Cell.Wall, Cell.Wall },

@@ -3,6 +3,7 @@ using System;
 using Spectre.Console;
 using Game.Map;
 using Game.Player;
+using NAudio.Wave;
 using System.ComponentModel.Design;
 using System.Security.Cryptography.X509Certificates;
 
@@ -19,15 +20,21 @@ public class Program
 
     public static bool reiniciar = false;
 
+    public static IWavePlayer ?waveOutDevice;
+    public static AudioFileReader ?audioFileReader;
+
     public static void Main(string[] args)
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
-
+        string musicRoute = "D:\\proyects\\PRO-YECTO\\proyecto\\Maze-Runners-Project\\music\\Game of Thrones 8-bit(MP3_160K).mp3";
+        
+        Menu.MainTitle();
+        Menu.TurnOnTheMusic(musicRoute);
         ConsoleKeyInfo pressedKey;
+        AnsiConsole.MarkupLine($"\t\t\t\t\t\t\t\t\t[bold gold3_1]Press any key to start[/]");
         pressedKey = Console.ReadKey(true);
 
         int currentPlayer = 0;
-
         Menu.PrintMainMenu();
     
         do
