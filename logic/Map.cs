@@ -99,7 +99,7 @@ public class Map
       if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Throne)
       {
          Console.Clear();
-         AnsiConsole.Write(new Markup("[blue]Game Over![/]"));
+         AnsiConsole.Write(new Markup("[bold yellow]Felicidades, te hiciste con el [italic]Trono de Hierro![/][/]\n"));
          Environment.Exit(0);
       }
       if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos))

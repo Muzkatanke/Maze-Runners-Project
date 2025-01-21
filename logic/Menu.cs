@@ -10,9 +10,9 @@ public class Menu
         {
             "Jugar",
             "Opciones",
-            "Salir"
+            "Salir",
         };
-
+        
         var selection = AnsiConsole.Prompt(
             new SelectionPrompt<string>()
                 .Title("Selecciona una opción:")
@@ -36,13 +36,14 @@ public class Menu
     }
     public static void PrintCharacterSelectionMenu()
     {
+        Console.Clear();
         List<string> characters = new List<string>
         {
             "[italic]Winterfell's Bastard[/] [bold white][underline]Jon Snow[/][/]",
             "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]",
             "[italic]Khaleesi[/] [bold red][underline]Daenerys Targaryen[/][/]",
             "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]",
-            "[italic]The Beauty[/] [bold yellow][underline]Brienne of Tarth[/][/]",
+            "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]",
         };
 
         var characterSelection1 = AnsiConsole.Prompt(
@@ -72,41 +73,56 @@ public class Menu
             PrintCharacterSelectionMenu();
         }
 
-        switch(characterSelection1)
+        switch (characterSelection1)
         {
             case "[italic]Winterfell's Bastard[/] [bold white][underline]Jon Snow[/][/]":
-            Program.Players.Add(Program.Snow);
-            break;
+                Program.Players.Add(Program.Snow);
+                break;
             case "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]":
-            Program.Players.Add(Program.Tyrion);
-            break;
+                Program.Players.Add(Program.Tyrion);
+                break;
             case "[italic]Khaleesi[/] [bold red][underline]Daenerys Targaryen[/][/]":
-            Program.Players.Add(Program.Daenerys);
-            break;
+                Program.Players.Add(Program.Daenerys);
+                break;
             case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]":
-            Program.Players.Add(Program.Arya);
-            break;
-            case "[italic]The Beauty[/] [bold yellow][underline]Brienne of Tarth[/][/]":
-            Program.Players.Add(Program.Brienne);
-            break;
+                Program.Players.Add(Program.Arya);
+                break;
+            case "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]":
+                Program.Players.Add(Program.Robert);
+                break;
         }
-        switch(characterSelection2)
+        switch (characterSelection2)
         {
             case "[italic]Winterfell's Bastard[/] [bold white][underline]Jon Snow[/][/]":
-            Program.Players.Add(Program.Snow);
-            break;
+                Program.Players.Add(Program.Snow);
+                break;
             case "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]":
-            Program.Players.Add(Program.Tyrion);
-            break;
+                Program.Players.Add(Program.Tyrion);
+                break;
             case "[italic]Khaleesi[/] [bold red][underline]Daenerys Targaryen[/][/]":
-            Program.Players.Add(Program.Daenerys);
-            break;
+                Program.Players.Add(Program.Daenerys);
+                break;
             case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]":
-            Program.Players.Add(Program.Arya);
-            break;
-            case "[italic]The Beauty[/] [bold yellow][underline]Brienne of Tarth[/][/]":
-            Program.Players.Add(Program.Brienne);
-            break;
+                Program.Players.Add(Program.Arya);
+                break;
+            case "[italic]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/]":
+                Program.Players.Add(Program.Robert);
+                break;
         }
-    }   
+    }
+    public static void PrintHealthBar(List<Player> Players, int currentPlayer)
+    {
+        if (currentPlayer == 0)
+        {
+            AnsiConsole.Write(new BarChart()
+                .Width(45)
+                .AddItem($"{Players[0].Symbol} [bold]Health[/]", Players[0].Health, Color.Red));
+        }
+        else
+        {
+            AnsiConsole.Write(new BarChart()
+                .Width(45)
+                .AddItem($"{Players[1].Symbol} [bold]Health[/]", Players[1].Health, Color.Red));
+        }
+    }
 }
