@@ -5,7 +5,7 @@ namespace Game.Map;
 
 public enum Cell
 {
-   Wall, Floor, Trap, BricksObstacle, Throne, DornishRed, ArborGold
+   Wall, Floor, BurstTrap, RiddleTrap, PrisonTrap, BricksObstacle, Throne, DornishRed, ArborGold
 };
 
 public class Map
@@ -14,7 +14,9 @@ public class Map
    {
       { Cell.Wall, "🟥" },
       { Cell.Floor, "◾" },
-      { Cell.Trap, "💣" },
+      { Cell.BurstTrap, "🔥" },
+      { Cell.RiddleTrap, "🧩" },
+      { Cell.PrisonTrap, "⛓️" },
       { Cell.BricksObstacle, "🧱" },
       { Cell.Throne, "👑"},
       { Cell.DornishRed, "🍷"},
@@ -24,14 +26,14 @@ public class Map
    public static Cell[,] maze = new Cell[10, 10]
    {
       { Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Trap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Trap, Cell.BricksObstacle, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.DornishRed, Cell.Wall, Cell.Wall, Cell.Wall },
+      { Cell.Floor, Cell.Floor, Cell.Floor, Cell.PrisonTrap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
+      { Cell.BurstTrap, Cell.BricksObstacle, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.DornishRed, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Wall, Cell.DornishRed, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.ArborGold, Cell.Floor, Cell.BricksObstacle, Cell.Floor,Cell.Floor, Cell.Floor, Cell.ArborGold, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Floor, Cell.Floor, Cell.Trap, Cell.Floor,Cell.BricksObstacle, Cell.Trap, Cell.Floor, Cell.Wall, Cell.Wall },
+      { Cell.Wall, Cell.Floor, Cell.Floor, Cell.RiddleTrap, Cell.Floor,Cell.BricksObstacle, Cell.BurstTrap, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Wall, Cell.Wall, Cell.Throne, Cell.Wall, Cell.Wall },
    };
 
@@ -101,15 +103,20 @@ public class Map
 
       if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos))
       {
+         
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength <= 3)
+         {
+            Players[currentPlayer].Health-=30;
+         }
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.ArborGold)
          {
             Players[currentPlayer].Intellect = 5;
-            Players[currentPlayer].Health+=10;
+            Players[currentPlayer].Health += 10;
          }
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.DornishRed)
          {
             Players[currentPlayer].Agility = 5;
-            Players[currentPlayer].Speed+=1;
+            Players[currentPlayer].Speed += 1;
          }
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Throne)
          {
@@ -148,28 +155,28 @@ public class Map
    {
       if (InsideOfBounds(currentPlayerXpos + 1, currentPlayerYpos) && maze[currentPlayerXpos + 1, currentPlayerYpos] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
-         {
-            maze[currentPlayerXpos + 1, currentPlayerYpos] = Cell.Floor;
-            return false;
-         } // Arriba
-      else if (InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos) && maze[currentPlayerXpos - 1, currentPlayerYpos] == Cell.BricksObstacle 
+      {
+         maze[currentPlayerXpos + 1, currentPlayerYpos] = Cell.Floor;
+         return false;
+      } // Arriba
+      else if (InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos) && maze[currentPlayerXpos - 1, currentPlayerYpos] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
-         {
-            maze[currentPlayerXpos - 1, currentPlayerYpos] = Cell.Floor;
-            return false;
-         }// Abajo
+      {
+         maze[currentPlayerXpos - 1, currentPlayerYpos] = Cell.Floor;
+         return false;
+      }// Abajo
       else if (InsideOfBounds(currentPlayerXpos, currentPlayerYpos + 1) && maze[currentPlayerXpos, currentPlayerYpos + 1] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
-         {
-            maze[currentPlayerXpos, currentPlayerYpos + 1] = Cell.Floor;
-            return false;
-         }  // Izquierda
+      {
+         maze[currentPlayerXpos, currentPlayerYpos + 1] = Cell.Floor;
+         return false;
+      }  // Izquierda
       else if (InsideOfBounds(currentPlayerXpos, currentPlayerYpos - 1) && maze[currentPlayerXpos, currentPlayerYpos - 1] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
-         {
-            maze[currentPlayerXpos, currentPlayerYpos - 1] = Cell.Floor;
-            return false;
-         } // Derecha 
+      {
+         maze[currentPlayerXpos, currentPlayerYpos - 1] = Cell.Floor;
+         return false;
+      } // Derecha 
       return maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BricksObstacle;
    }
 
@@ -181,5 +188,4 @@ public class Map
       }
       return false;
    }
-
 }

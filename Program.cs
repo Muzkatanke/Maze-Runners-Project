@@ -41,6 +41,11 @@ public class Program
         {
             if (currentPlayer == 0)
             {
+                if (Players[0].Health < 10)
+                {
+                    Players[0].Health = 10;
+                    Players[0].Speed = 1;
+                }
                 Players[1].MovesLeft = Players[1].Speed;
                 Console.Clear();
                 Map.PrintMaze(Map.maze, Players);
@@ -57,6 +62,11 @@ public class Program
 
             if (currentPlayer == 1)
             {
+                if (Players[1].Health < 10)
+                {
+                    Players[1].Health = 10;
+                    Players[1].Speed = 1;
+                }
                 Players[0].MovesLeft = Players[0].Speed;
                 Console.Clear();
                 Map.PrintMaze(Map.maze, Players);
