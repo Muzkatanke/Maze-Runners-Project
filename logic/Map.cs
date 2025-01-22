@@ -5,7 +5,7 @@ namespace Game.Map;
 
 public enum Cell
 {
-   Wall, Floor, BurstTrap, RiddleTrap, PrisonTrap, BricksObstacle, Throne, DornishRed, ArborGold
+   Wall, Floor, BurstTrap, RiddleTrap, OilTrap, BricksObstacle, Throne, DornishRed, ArborGold
 };
 
 public class Map
@@ -16,7 +16,7 @@ public class Map
       { Cell.Floor, "◾" },
       { Cell.BurstTrap, "🔥" },
       { Cell.RiddleTrap, "🧩" },
-      { Cell.PrisonTrap, "⛓️" },
+      { Cell.OilTrap, "♨️" },
       { Cell.BricksObstacle, "🧱" },
       { Cell.Throne, "👑"},
       { Cell.DornishRed, "🍷"},
@@ -26,7 +26,7 @@ public class Map
    public static Cell[,] maze = new Cell[10, 10]
    {
       { Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Floor, Cell.Floor, Cell.Floor, Cell.PrisonTrap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
+      { Cell.Floor, Cell.Floor, Cell.Floor, Cell.OilTrap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.BurstTrap, Cell.BricksObstacle, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.DornishRed, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Wall, Cell.DornishRed, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
@@ -103,27 +103,36 @@ public class Map
 
       if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos))
       {
-         
+
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.OilTrap && Players[currentPlayer].Agility <= 3)
+         {
+            Players[currentPlayer].Speed -= 1;
+         }
+
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength <= 3)
          {
-            Players[currentPlayer].Health-=30;
+            Players[currentPlayer].Health -= 30;
          }
+
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.ArborGold)
          {
             Players[currentPlayer].Intellect = 5;
             Players[currentPlayer].Health += 10;
          }
+
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.DornishRed)
          {
             Players[currentPlayer].Agility = 5;
             Players[currentPlayer].Speed += 1;
          }
+
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Throne)
          {
             Console.Clear();
             AnsiConsole.Write(new Markup("[bold yellow]Felicidades, te hiciste con el [italic]Trono de Hierro![/][/]\n"));
             Environment.Exit(0);
          }
+
          if (currentPlayer == 0)
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
@@ -139,7 +148,6 @@ public class Map
             Program.Players[1].MovesLeft--;
          }
       }
-
    }
 
    public static bool Collision(int newCurrentPlayerXpos, int newCurrentPlayerYpos)
