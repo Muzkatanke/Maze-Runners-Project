@@ -29,7 +29,7 @@ public class Program
         string musicRoute = "D:\\proyects\\PRO-YECTO\\proyecto\\Maze-Runners-Project\\music\\Game of Thrones 8-bit(MP3_160K).mp3";
         
         Menu.MainTitle();
-      //  Menu.TurnOnTheMusic(musicRoute);
+        Menu.TurnOnTheMusic(musicRoute);
         ConsoleKeyInfo pressedKey;
         AnsiConsole.MarkupLine($"\t\t\t\t\t\t\t\t\t[bold gold3_1]Press any key to start[/]");
         pressedKey = Console.ReadKey(true);

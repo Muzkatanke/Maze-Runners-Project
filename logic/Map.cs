@@ -5,7 +5,7 @@ namespace Game.Map;
 
 public enum Cell
 {
-   Wall, Floor, Trap, BricksObstacle, ChainsObstacle, Throne, DornishRed, ArborGold
+   Wall, Floor, Trap, BricksObstacle, Throne, DornishRed, ArborGold
 };
 
 public class Map
@@ -16,7 +16,6 @@ public class Map
       { Cell.Floor, "◾" },
       { Cell.Trap, "💣" },
       { Cell.BricksObstacle, "🧱" },
-      { Cell.ChainsObstacle, "⛓️" },
       { Cell.Throne, "👑"},
       { Cell.DornishRed, "🍷"},
       { Cell.ArborGold, "🍸"},
@@ -30,9 +29,9 @@ public class Map
       { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Wall, Cell.DornishRed, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.ArborGold, Cell.Floor, Cell.ChainsObstacle, Cell.Floor,Cell.Floor, Cell.Floor, Cell.ArborGold, Cell.Wall, Cell.Wall },
+      { Cell.Wall, Cell.ArborGold, Cell.Floor, Cell.BricksObstacle, Cell.Floor,Cell.Floor, Cell.Floor, Cell.ArborGold, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Floor, Cell.Floor, Cell.Trap, Cell.Floor,Cell.ChainsObstacle, Cell.Trap, Cell.Floor, Cell.Wall, Cell.Wall },
+      { Cell.Wall, Cell.Floor, Cell.Floor, Cell.Trap, Cell.Floor,Cell.BricksObstacle, Cell.Trap, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Wall, Cell.Wall, Cell.Throne, Cell.Wall, Cell.Wall },
    };
 

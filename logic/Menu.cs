@@ -40,11 +40,11 @@ public class Menu
         Console.Clear();
         List<string> characters = new List<string>
         {
-            "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]",
-            "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]",
-            "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]",
-            "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]",
-            "[italic]Daenerys Stormborn of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]",
+            "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]\n",
+            "[italic]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/]\n",
+            "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]\n",
+            "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]\n",
+            "[italic]Daenerys Stormborn of the House Targaryen\n The First of Her Name\n The Unburnt\n Queen of the Andals, the Rhoynar and the First Men\n Queen of Meereen\n Khaleesi of the Great Grass Sea\n Protector of the Realm\n Lady Regent of the Seven Kingdoms\n Breaker of Chains\n Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]",
         };
 
         var characterSelection1 = AnsiConsole.Prompt(
@@ -76,37 +76,37 @@ public class Menu
 
         switch (characterSelection1)
         {
-            case "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]":
+            case "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]\n":
                 Program.Players.Add(Program.Snow);
                 break;
-            case "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]":
+            case "[italic]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/]\n":
                 Program.Players.Add(Program.Tyrion);
                 break;
-            case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]":
+            case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]\n":
                 Program.Players.Add(Program.Arya);
                 break;
-            case "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]":
+            case "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]\n":
                 Program.Players.Add(Program.Robert);
                 break;
-            case "[italic]Daenerys Stormborn of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]":
+            case "[italic]Daenerys Stormborn of the House Targaryen\n The First of Her Name\n The Unburnt\n Queen of the Andals, the Rhoynar and the First Men\n Queen of Meereen\n Khaleesi of the Great Grass Sea\n Protector of the Realm\n Lady Regent of the Seven Kingdoms\n Breaker of Chains\n Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]":
                 Program.Players.Add(Program.Daenerys);
                 break;
         }
         switch (characterSelection2)
         {
-            case "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]":
+            case "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]\n":
                 Program.Players.Add(Program.Snow);
                 break;
-            case "[italic]King's Hand[/] [bold grey][underline]Tyrion Lannister[/][/]":
+            case "[italic]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/]\n":
                 Program.Players.Add(Program.Tyrion);
                 break;
-            case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]":
+            case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]\n":
                 Program.Players.Add(Program.Arya);
                 break;
-            case "[italic]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/]":
+            case "[italic]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/]\n":
                 Program.Players.Add(Program.Robert);
                 break;
-            case "[italic]Daenerys Stormborn of the House Targaryen, the First of Her Name, The Unburnt, Queen of the Andals, the Rhoynar and the First Men, Queen of Meereen, Khaleesi of the Great Grass Sea, Protector of the Realm, Lady Regent of the Seven Kingdoms, Breaker of Chains and Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]":
+            case "[italic]Daenerys Stormborn of the House Targaryen\n The First of Her Name\n The Unburnt\n Queen of the Andals, the Rhoynar and the First Men\n Queen of Meereen\n Khaleesi of the Great Grass Sea\n Protector of the Realm\n Lady Regent of the Seven Kingdoms\n Breaker of Chains\n Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]":
                 Program.Players.Add(Program.Daenerys);
                 break;
         }
