@@ -76,7 +76,7 @@ public class Map
       AnsiConsole.Write(panel);
 
    }
-   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer)
+   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players)
    {
 
       int newCurrentPlayerXpos = currentPlayerXpos;
@@ -101,6 +101,16 @@ public class Map
 
       if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos))
       {
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.ArborGold)
+         {
+            Players[currentPlayer].Intellect = 5;
+            Players[currentPlayer].Health+=10;
+         }
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.DornishRed)
+         {
+            Players[currentPlayer].Agility = 5;
+            Players[currentPlayer].Speed+=1;
+         }
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Throne)
          {
             Console.Clear();

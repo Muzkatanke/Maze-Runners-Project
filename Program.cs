@@ -29,7 +29,7 @@ public class Program
         string musicRoute = "D:\\proyects\\PRO-YECTO\\proyecto\\Maze-Runners-Project\\music\\Game of Thrones 8-bit(MP3_160K).mp3";
         
         Menu.MainTitle();
-        Menu.TurnOnTheMusic(musicRoute);
+     //   Menu.TurnOnTheMusic(musicRoute);
         ConsoleKeyInfo pressedKey;
         AnsiConsole.MarkupLine($"\t\t\t\t\t\t\t\t\t[bold gold3_1]Press any key to start[/]");
         pressedKey = Console.ReadKey(true);
@@ -50,7 +50,7 @@ public class Program
                 AnsiConsole.Write(new Markup("[dim]NOTE: Press [slowblink blue]<Start>[/] to use your hability or [rapidblink blue]<Space>[/] to break an obstacle[/]"));
 
                 pressedKey = Console.ReadKey(true);
-                Map.MovePlayer(pressedKey.Key, Players[0].Xpos, Players[0].Ypos, 0);
+                Map.MovePlayer(pressedKey.Key, Players[0].Xpos, Players[0].Ypos, 0, Players);
             }
             if (Players[0].MovesLeft == 0) currentPlayer = 1;
 
@@ -66,7 +66,7 @@ public class Program
                 AnsiConsole.Markup("[dim]NOTE: Press [blue]<Start>[/] to use your hability or [blue]<Space>[/] to break an obstacle[/]");
 
                 pressedKey = Console.ReadKey(true);
-                Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1);
+                Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1, Players);
             }
             if (Players[1].MovesLeft == 0) currentPlayer = 0;
 
