@@ -43,7 +43,7 @@ public class Menu
             "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/]\n",
             "[italic]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/]\n",
             "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]\n",
-            "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]\n",
+            "[italic]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/]\n",
             "[italic]Daenerys Stormborn of the House Targaryen\n The First of Her Name\n The Unburnt\n Queen of the Andals, the Rhoynar and the First Men\n Queen of Meereen\n Khaleesi of the Great Grass Sea\n Protector of the Realm\n Lady Regent of the Seven Kingdoms\n Breaker of Chains\n Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]",
         };
 
@@ -85,7 +85,7 @@ public class Menu
             case "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/]\n":
                 Program.Players.Add(Program.Arya);
                 break;
-            case "[italic]The usurper[/] [bold yellow][underline]Robert Baratheon[/][/]\n":
+            case "[italic]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/]\n":
                 Program.Players.Add(Program.Robert);
                 break;
             case "[italic]Daenerys Stormborn of the House Targaryen\n The First of Her Name\n The Unburnt\n Queen of the Andals, the Rhoynar and the First Men\n Queen of Meereen\n Khaleesi of the Great Grass Sea\n Protector of the Realm\n Lady Regent of the Seven Kingdoms\n Breaker of Chains\n Mother of Dragons[/] [bold red][underline]Daenerys Targaryen[/][/]":

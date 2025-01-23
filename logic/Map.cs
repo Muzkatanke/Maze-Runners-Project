@@ -103,10 +103,14 @@ public class Map
 
       if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos))
       {
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.RiddleTrap && Players[currentPlayer].Intellect <= 3)
+         {
+            RiddleTrap(Players, currentPlayer);
+         }
 
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.OilTrap && Players[currentPlayer].Agility <= 3)
          {
-            Players[currentPlayer].Speed -= 1;
+            Players[currentPlayer].Speed = 1;
          }
 
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength <= 3)
@@ -195,5 +199,93 @@ public class Map
          return true;
       }
       return false;
+   }
+
+   public static void RiddleTrap(List<Player.Player> Players, int currentPlayer)
+   {
+         Console.Clear();
+         Random random = new Random();
+
+         AnsiConsole.MarkupLine("[bold green]Acertijo!![/]");
+
+         switch (random.Next(1, 3))
+         {
+            case 1:
+               var optionsRiddle1 = new[]
+               {
+                     "Un guante",
+                     "Una estrella",
+                     "Una marioneta",
+                     "Un pie",
+               };
+
+               var riddle1 = AnsiConsole.Prompt(
+                  new SelectionPrompt<string>()
+                     .Title("Tengo cuatro dedos y un pulgar, pero no soy una mano. ¿Qué soy?")
+                     .AddChoices(optionsRiddle1)
+               );
+
+               if (riddle1 == "Un guante") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
+               else
+               {
+                  AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
+                  Players[currentPlayer].Health -= 15;
+                  Players[currentPlayer].Speed -= 1;
+               }
+               break;
+
+            case 2:
+               var optionsRiddle2 = new[]
+               {
+                  "Un atlas",
+                  "Un mapa",
+                  "Un globo terráqueo",
+                  "Una pintura",
+               };
+
+               var riddle2 = AnsiConsole.Prompt(
+                  new SelectionPrompt<string>()
+                     .Title("Tengo ciudades, pero no casas. Tengo montañas, pero no árboles. Tengo agua, pero no peces. ¿Qué soy?")
+                     .AddChoices(optionsRiddle2)
+               );
+
+               if (riddle2 == "Un mapa") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
+               else
+               {
+                  AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
+                  Players[currentPlayer].Health -= 15;
+                  Players[currentPlayer].Speed -= 1;
+               }
+               break;
+
+            case 3:
+               var optionsRiddle3 = new[]
+               {
+                  "Todos son caballeros",
+                  "A y B son caballeros, C es truhan",
+                  "A y C son caballeros, B es truhan",
+                  "B y C son caballeros, A es truhan",
+                  "No sé, suspendí lógica",
+               };
+
+               var riddle3 = AnsiConsole.Prompt(
+                  new SelectionPrompt<string>()
+                     .Title(@"En una isla hay dos tipos de habitantes: los caballeros, que siempre dicen la verdad, y los truhanes, que siempre mienten. Te encuentras con tres habitantes: A, B y C. Sabes lo siguiente:
+                     A dice: Yo soy un caballero o B es un caballero.
+                     B dice: Si A es un caballero, entonces yo soy un caballero.
+                     C dice: B es un caballero o A es un truhan.
+                     ¿Qué tipo de habitantes son A, B y C?")
+                     .AddChoices(optionsRiddle3)
+               );
+
+               if (riddle3 == "A y B son caballeros, C es truhan") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
+               else
+               {
+                  AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
+                  Players[currentPlayer].Health -= 15;
+                  Players[currentPlayer].Speed -= 1;
+               }
+               break;
+         }
    }
 }

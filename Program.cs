@@ -14,11 +14,9 @@ public class Program
     public static Player Tyrion = new Player(0, 1, "🦁", 2, 2, 1, 1, 5, 100);
     public static Player Daenerys = new Player(1, 0, "🐉", 3, 3, 1, 2, 4, 100);
     public static Player Arya = new Player(1, 1, "🎭", 4, 4, 2, 5, 4, 100);
-    public static Player Robert = new Player(2, 1, "🦌", 2, 2, 5, 2, 2, 100);
+    public static Player Robert = new Player(1, 2, "🦌", 2, 5, 2, 2, 2, 100);
 
     public static List<Player> Players = new List<Player>();
-
-    public static bool reiniciar = false;
 
     public static IWavePlayer ?waveOutDevice;
     public static AudioFileReader ?audioFileReader;
@@ -80,6 +78,6 @@ public class Program
             }
             if (Players[1].MovesLeft == 0) currentPlayer = 0;
 
-        } while (pressedKey.Key != ConsoleKey.Escape || reiniciar);
+        } while (pressedKey.Key != ConsoleKey.Escape);
     }
 }
