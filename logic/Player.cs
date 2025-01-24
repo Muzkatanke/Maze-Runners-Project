@@ -25,4 +25,5 @@ public class Player
         Intellect = intellect;
         Health = health;
     }
+
 }

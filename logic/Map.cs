@@ -30,7 +30,7 @@ public class Map
       { Cell.Floor, Cell.Floor, Cell.RiddleTrap, Cell.OilTrap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.BurstTrap, Cell.BricksObstacle, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.DornishRed, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Floor, Cell.Wall, Cell.DornishRed, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
+      { Cell.BurstTrap, Cell.Floor, Cell.Wall, Cell.DornishRed, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.ArborGold, Cell.Floor, Cell.BricksObstacle, Cell.Floor,Cell.Floor, Cell.Floor, Cell.ArborGold, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
@@ -97,22 +97,26 @@ public class Map
          case ConsoleKey.LeftArrow:
             newCurrentPlayerYpos--;
             break;
+         case ConsoleKey.Enter:
+            Habilities.WhoPressed(currentPlayer, Players);
+            break;
       }
 
 
       if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos, Players, currentPlayer))
       {
-         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.RiddleTrap && Players[currentPlayer].Intellect <= 4)
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.RiddleTrap && Players[currentPlayer].Intellect < 5)
          {
             RiddleTrap(Players, currentPlayer);
          }
 
-         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.OilTrap && Players[currentPlayer].Agility <= 4)
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.OilTrap && Players[currentPlayer].Agility < 5)
          {
             Players[currentPlayer].Speed = 1;
+            AnsiConsole.MarkupLine("Oh oh, caiste en una trampa de aceite, tu velocidad ahora solo es de 1");
          }
 
-         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength <= 4)
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength < 5)
          {
             Players[currentPlayer].Health -= 40;
          }
@@ -233,7 +237,7 @@ public class Map
             {
                AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
                Players[currentPlayer].Health -= 25;
-               if (Players[currentPlayer].Speed >= 1)
+               if (Players[currentPlayer].Speed > 1)
                {
                   Players[currentPlayer].Speed -= 1;
                }
