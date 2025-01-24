@@ -1,6 +1,7 @@
 using Microsoft.VisualBasic;
 using Spectre.Console;
 using Game.Player;
+using Game.Menu;
 namespace Game.Map;
 
 public enum Cell
@@ -26,7 +27,7 @@ public class Map
    public static Cell[,] maze = new Cell[10, 10]
    {
       { Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Floor, Cell.Floor, Cell.Floor, Cell.OilTrap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
+      { Cell.Floor, Cell.Floor, Cell.RiddleTrap, Cell.OilTrap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.BurstTrap, Cell.BricksObstacle, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.DornishRed, Cell.Wall, Cell.Wall, Cell.Wall },
       { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
       { Cell.Wall, Cell.Floor, Cell.Wall, Cell.DornishRed, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
@@ -66,21 +67,18 @@ public class Map
                rowContent.Add(Players[1].Symbol);
             }
             else rowContent.Add(CellSymbols[maze[i, j]].ToString());
+            table.AddRow(rowContent.ToArray());
          }
-         table.AddRow(rowContent.ToArray());
+         table.HideHeaders();
+
+         var panel = new Panel(table);
+         panel.Border = BoxBorder.Double;
+         panel.Header("Maze", Justify.Center);
+         AnsiConsole.Write(panel);
       }
-      table.HideHeaders();
-
-
-      var panel = new Panel(table);
-      panel.Border = BoxBorder.Double;
-      panel.Header("Maze", Justify.Center);
-      AnsiConsole.Write(panel);
-
    }
    public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players)
    {
-
       int newCurrentPlayerXpos = currentPlayerXpos;
       int newCurrentPlayerYpos = currentPlayerYpos;
 
@@ -101,7 +99,7 @@ public class Map
       }
 
 
-      if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos))
+      if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos, Players, currentPlayer))
       {
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.RiddleTrap && Players[currentPlayer].Intellect <= 3)
          {
@@ -115,7 +113,7 @@ public class Map
 
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength <= 3)
          {
-            Players[currentPlayer].Health -= 30;
+            Players[currentPlayer].Health -= 40;
          }
 
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.ArborGold)
@@ -137,14 +135,14 @@ public class Map
             Environment.Exit(0);
          }
 
-         if (currentPlayer == 0)
+         if (currentPlayer == 0 && (pressedKey == ConsoleKey.UpArrow || pressedKey == ConsoleKey.DownArrow || pressedKey == ConsoleKey.LeftArrow || pressedKey == ConsoleKey.RightArrow))
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
             Program.Players[0].Xpos = newCurrentPlayerXpos;
             Program.Players[0].Ypos = newCurrentPlayerYpos;
             Program.Players[0].MovesLeft--;
          }
-         else
+         if (currentPlayer == 1 && (pressedKey == ConsoleKey.UpArrow || pressedKey == ConsoleKey.DownArrow || pressedKey == ConsoleKey.LeftArrow || pressedKey == ConsoleKey.RightArrow))
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
             Program.Players[1].Xpos = newCurrentPlayerXpos;
@@ -163,30 +161,34 @@ public class Map
       return maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Wall;
    }
 
-   public static bool Obstacle(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int newCurrentPlayerXpos, int newCurrentPlayerYpos)
+   public static bool Obstacle(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int newCurrentPlayerXpos, int newCurrentPlayerYpos, List<Player.Player> Players, int currentPlayer)
    {
       if (InsideOfBounds(currentPlayerXpos + 1, currentPlayerYpos) && maze[currentPlayerXpos + 1, currentPlayerYpos] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
       {
          maze[currentPlayerXpos + 1, currentPlayerYpos] = Cell.Floor;
+         Players[currentPlayer].MovesLeft -= 1;
          return false;
       } // Arriba
       else if (InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos) && maze[currentPlayerXpos - 1, currentPlayerYpos] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
       {
          maze[currentPlayerXpos - 1, currentPlayerYpos] = Cell.Floor;
+         Players[currentPlayer].MovesLeft -= 1;
          return false;
       }// Abajo
       else if (InsideOfBounds(currentPlayerXpos, currentPlayerYpos + 1) && maze[currentPlayerXpos, currentPlayerYpos + 1] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
       {
          maze[currentPlayerXpos, currentPlayerYpos + 1] = Cell.Floor;
+         Players[currentPlayer].MovesLeft -= 1;
          return false;
       }  // Izquierda
       else if (InsideOfBounds(currentPlayerXpos, currentPlayerYpos - 1) && maze[currentPlayerXpos, currentPlayerYpos - 1] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
       {
          maze[currentPlayerXpos, currentPlayerYpos - 1] = Cell.Floor;
+         Players[currentPlayer].MovesLeft -= 1;
          return false;
       } // Derecha 
       return maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BricksObstacle;
@@ -203,64 +205,69 @@ public class Map
 
    public static void RiddleTrap(List<Player.Player> Players, int currentPlayer)
    {
-         Console.Clear();
-         Random random = new Random();
+      Console.Clear();
+      Random random = new Random();
 
-         AnsiConsole.MarkupLine("[bold green]Acertijo!![/]");
+      AnsiConsole.MarkupLine("[bold green]Acertijo!![/]");
 
-         switch (random.Next(1, 3))
-         {
-            case 1:
-               var optionsRiddle1 = new[]
-               {
+      switch (random.Next(1, 4))
+      {
+         case 1:
+            var optionsRiddle1 = new[]
+            {
                      "Un guante",
                      "Una estrella",
                      "Una marioneta",
                      "Un pie",
                };
 
-               var riddle1 = AnsiConsole.Prompt(
-                  new SelectionPrompt<string>()
-                     .Title("Tengo cuatro dedos y un pulgar, pero no soy una mano. ¿Qué soy?")
-                     .AddChoices(optionsRiddle1)
-               );
+            var riddle1 = AnsiConsole.Prompt(
+               new SelectionPrompt<string>()
+                  .Title("Tengo cuatro dedos y un pulgar, pero no soy una mano. ¿Qué soy?")
+                  .AddChoices(optionsRiddle1)
+            );
 
-               if (riddle1 == "Un guante") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
-               else
+            if (riddle1 == "Un guante") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
+            else
+            {
+               AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
+               Players[currentPlayer].Health -= 25;
+               if (Players[currentPlayer].Speed >= 1)
                {
-                  AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
-                  Players[currentPlayer].Health -= 15;
                   Players[currentPlayer].Speed -= 1;
                }
-               break;
+               else Players[currentPlayer].Speed = 1;
 
-            case 2:
-               var optionsRiddle2 = new[]
-               {
+            }
+            break;
+
+         case 2:
+            var optionsRiddle2 = new[]
+            {
                   "Un atlas",
                   "Un mapa",
                   "Un globo terráqueo",
                   "Una pintura",
                };
 
-               var riddle2 = AnsiConsole.Prompt(
-                  new SelectionPrompt<string>()
-                     .Title("Tengo ciudades, pero no casas. Tengo montañas, pero no árboles. Tengo agua, pero no peces. ¿Qué soy?")
-                     .AddChoices(optionsRiddle2)
-               );
+            var riddle2 = AnsiConsole.Prompt(
+               new SelectionPrompt<string>()
+                  .Title("Tengo ciudades, pero no casas. Tengo montañas, pero no árboles. Tengo agua, pero no peces. ¿Qué soy?")
+                  .AddChoices(optionsRiddle2)
+            );
 
-               if (riddle2 == "Un mapa") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
-               else
-               {
-                  AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
-                  Players[currentPlayer].Health -= 15;
-                  Players[currentPlayer].Speed -= 1;
-               }
-               break;
+            if (riddle2 == "Un mapa") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
+            else
+            {
+               AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
+               Players[currentPlayer].Health -= 15;
+               Players[currentPlayer].Speed -= 1;
+            }
+            break;
 
-            case 3:
-               var optionsRiddle3 = new[]
-               {
+         case 3:
+            var optionsRiddle3 = new[]
+            {
                   "Todos son caballeros",
                   "A y B son caballeros, C es truhan",
                   "A y C son caballeros, B es truhan",
@@ -268,24 +275,25 @@ public class Map
                   "No sé, suspendí lógica",
                };
 
-               var riddle3 = AnsiConsole.Prompt(
-                  new SelectionPrompt<string>()
-                     .Title(@"En una isla hay dos tipos de habitantes: los caballeros, que siempre dicen la verdad, y los truhanes, que siempre mienten. Te encuentras con tres habitantes: A, B y C. Sabes lo siguiente:
-                     A dice: Yo soy un caballero o B es un caballero.
-                     B dice: Si A es un caballero, entonces yo soy un caballero.
-                     C dice: B es un caballero o A es un truhan.
-                     ¿Qué tipo de habitantes son A, B y C?")
-                     .AddChoices(optionsRiddle3)
-               );
+            var riddle3 = AnsiConsole.Prompt(
+               new SelectionPrompt<string>()
+                  .Title("En una isla hay dos tipos de habitantes: los caballeros, que siempre dicen la verdad, y los truhanes, que siempre mienten.\n" +
+                     "Te encuentras con tres habitantes: A, B y C. Sabes lo siguiente:\n" +
+                     "A dice: Yo soy un caballero o B es un caballero.\n" +
+                     "B dice: Si A es un caballero, entonces yo soy un caballero.\n" +
+                     "C dice: B es un caballero o A es un truhan.\n" +
+                     "¿Qué tipo de habitantes son A, B y C?")
+                  .AddChoices(optionsRiddle3)
+            );
 
-               if (riddle3 == "A y B son caballeros, C es truhan") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
-               else
-               {
-                  AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
-                  Players[currentPlayer].Health -= 15;
-                  Players[currentPlayer].Speed -= 1;
-               }
-               break;
-         }
+            if (riddle3 == "A y B son caballeros, C es truhan") AnsiConsole.MarkupLine("[bold green]Correcto!![/]");
+            else
+            {
+               AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
+               Players[currentPlayer].Health -= 15;
+               Players[currentPlayer].Speed -= 1;
+            }
+            break;
+      }
    }
 }

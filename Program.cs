@@ -3,6 +3,7 @@ using System;
 using Spectre.Console;
 using Game.Map;
 using Game.Player;
+using Game.Menu;
 using NAudio.Wave;
 using System.ComponentModel.Design;
 using System.Security.Cryptography.X509Certificates;
@@ -10,13 +11,14 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Program
 {
-    public static Player Snow = new Player(0, 0, "🐺", 3, 3, 3, 3, 3, 100);
-    public static Player Tyrion = new Player(0, 1, "🦁", 2, 2, 1, 1, 5, 100);
-    public static Player Daenerys = new Player(1, 0, "🐉", 3, 3, 1, 2, 4, 100);
+    public static Player Snow = new Player(0, 0, "🐺", 3, 3, 4, 3, 4, 100);
+    public static Player Tyrion = new Player(0, 1, "🦁", 2, 2, 1, 2, 5, 100);
+    public static Player Daenerys = new Player(1, 0, "🐉", 3, 3, 3, 3, 4, 100);
     public static Player Arya = new Player(1, 1, "🎭", 4, 4, 2, 5, 4, 100);
-    public static Player Robert = new Player(1, 2, "🦌", 2, 5, 2, 2, 2, 100);
+    public static Player Robert = new Player(1, 2, "🦌", 2, 2, 5, 2, 2, 100);
+    public static Player NightKing = new Player(1, 1, "💀", 2, 2, 5, 4, 4, 100);
 
-    public static List<Player> Players = new List<Player>();
+    public static List<Player> Players = new List<Player>(2);
 
     public static IWavePlayer ?waveOutDevice;
     public static AudioFileReader ?audioFileReader;
@@ -27,7 +29,7 @@ public class Program
         string musicRoute = "D:\\proyects\\PRO-YECTO\\proyecto\\Maze-Runners-Project\\music\\Game of Thrones 8-bit(MP3_160K).mp3";
         
         Menu.MainTitle();
-     //   Menu.TurnOnTheMusic(musicRoute);
+        Menu.TurnOnTheMusic(musicRoute);
         ConsoleKeyInfo pressedKey;
         AnsiConsole.MarkupLine($"\t\t\t\t\t\t\t\t\t[bold gold3_1]Press any key to start[/]");
         pressedKey = Console.ReadKey(true);
@@ -44,7 +46,7 @@ public class Program
                     Players[0].Health = 10;
                     Players[0].Speed = 1;
                 }
-                Players[1].MovesLeft = Players[1].Speed;
+                Players[0].MovesLeft = Players[0].Speed;
                 Console.Clear();
                 Map.PrintMaze(Map.maze, Players);
 
@@ -65,7 +67,7 @@ public class Program
                     Players[1].Health = 10;
                     Players[1].Speed = 1;
                 }
-                Players[0].MovesLeft = Players[0].Speed;
+                Players[1].MovesLeft = Players[1].Speed;
                 Console.Clear();
                 Map.PrintMaze(Map.maze, Players);
 
