@@ -75,7 +75,7 @@ public class Menu
 
         switch (characterSelection1)
         {
-            case "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/] 🐺\n":
+            case "[italic]Winterfell's Bastard[/] [bold black][underline]Jon Snow[/][/] 🐺\n":
                 Program.Players.Add(Program.Snow);
                 break;
             case "[italic]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/] 🦁\n":
@@ -96,7 +96,7 @@ public class Menu
         }
         switch (characterSelection2)
         {
-            case "[italic]Winterfell's Bastard[/] [bold silver][underline]Jon Snow[/][/] 🐺\n":
+            case "[italic]Winterfell's Bastard[/] [bold black][underline]Jon Snow[/][/] 🐺\n":
                 Program.Players.Add(Program.Snow);
                 break;
             case "[italic]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/] 🦁\n":

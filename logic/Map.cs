@@ -67,15 +67,16 @@ public class Map
                rowContent.Add(Players[1].Symbol);
             }
             else rowContent.Add(CellSymbols[maze[i, j]].ToString());
-            table.AddRow(rowContent.ToArray());
-         }
-         table.HideHeaders();
 
-         var panel = new Panel(table);
-         panel.Border = BoxBorder.Double;
-         panel.Header("Maze", Justify.Center);
-         AnsiConsole.Write(panel);
+         }
+         table.AddRow(rowContent.ToArray());
       }
+      table.HideHeaders();
+
+      var panel = new Panel(table);
+      panel.Border = BoxBorder.Double;
+      panel.Header("Maze", Justify.Center);
+      AnsiConsole.Write(panel);
    }
    public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players)
    {
@@ -101,17 +102,17 @@ public class Map
 
       if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos, Players, currentPlayer))
       {
-         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.RiddleTrap && Players[currentPlayer].Intellect <= 3)
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.RiddleTrap && Players[currentPlayer].Intellect <= 4)
          {
             RiddleTrap(Players, currentPlayer);
          }
 
-         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.OilTrap && Players[currentPlayer].Agility <= 3)
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.OilTrap && Players[currentPlayer].Agility <= 4)
          {
             Players[currentPlayer].Speed = 1;
          }
 
-         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength <= 3)
+         if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength <= 4)
          {
             Players[currentPlayer].Health -= 40;
          }
