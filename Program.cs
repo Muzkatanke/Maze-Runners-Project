@@ -19,7 +19,7 @@ public class Program
     public static Player NightKing = new Player(1, 1, "💀", 2, 2, 5, 4, 4, 100);
 
     public static List<Player> Players = new List<Player>(2);
-
+    public static int currentPlayer = 0;
     public static IWavePlayer ?waveOutDevice;
     public static AudioFileReader ?audioFileReader;
 
@@ -34,14 +34,14 @@ public class Program
         AnsiConsole.MarkupLine($"\t\t\t\t\t\t\t\t\t[bold gold3_1]Press any key to start[/]");
         pressedKey = Console.ReadKey(true);
 
-        int currentPlayer = 0;
+        
         Menu.PrintMainMenu();
-
-        int tempPlayer0 = Players[0].Speed;
-        int tempPlayer1 = Players[1].Speed;
-    
+        int coolDown = Players[currentPlayer].CD;
+        
         do
         {
+            Players[currentPlayer].CD--;
+            //manejar cuando cd se haga < 0
             if (currentPlayer == 0)
             {
                 if (Players[0].Health <= 10)
@@ -54,15 +54,14 @@ public class Program
                 Console.Clear();
                 Map.PrintMaze(Map.maze, Players);
 
-                AnsiConsole.MarkupLine($"[bold]Current PLayer: {Players[0].Symbol}\t\tMoves Left: {Players[0].MovesLeft}[/]");
+                AnsiConsole.MarkupLine($"[bold]Current PLayer: {Players[0].Symbol}\t\tMoves Left: {Players[0].MovesLeft}\t\tCD Hability: {Players[0].CD}[/]");
                 Menu.PrintHealthBar(Players, 0);
                 AnsiConsole.Write(new Markup("[dim]NOTE: Press [slowblink blue]<Start>[/] to use your hability or [rapidblink blue]<Space>[/] to break an obstacle[/]"));
 
                 pressedKey = Console.ReadKey(true);
-                Map.MovePlayer(pressedKey.Key, Players[0].Xpos, Players[0].Ypos, 0, Players);
+                Map.MovePlayer(pressedKey.Key, Players[0].Xpos, Players[0].Ypos, 0, Players, coolDown);
             }
             if (Players[0].MovesLeft == 0) currentPlayer = 1;
-
 
             if (currentPlayer == 1)
             {
@@ -81,9 +80,10 @@ public class Program
                 AnsiConsole.Markup("[dim]NOTE: Press [blue]<Start>[/] to use your hability or [blue]<Space>[/] to break an obstacle[/]");
 
                 pressedKey = Console.ReadKey(true);
-                Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1, Players);
+                Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1, Players, coolDown);
             }
             if (Players[1].MovesLeft == 0) currentPlayer = 0;
+           
 
         } while (pressedKey.Key != ConsoleKey.Escape);
     }

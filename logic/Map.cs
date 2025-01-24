@@ -78,7 +78,7 @@ public class Map
       panel.Header("Maze", Justify.Center);
       AnsiConsole.Write(panel);
    }
-   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players)
+   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players, int coolDown)
    {
       int newCurrentPlayerXpos = currentPlayerXpos;
       int newCurrentPlayerYpos = currentPlayerYpos;
@@ -98,7 +98,11 @@ public class Map
             newCurrentPlayerYpos--;
             break;
          case ConsoleKey.Enter:
-            Habilities.WhoPressed(currentPlayer, Players);
+            if(Players[currentPlayer].CD == 0) 
+            {
+               Habilities.WhoPressed(currentPlayer, Players, currentPlayerXpos, currentPlayerYpos, maze);
+               Players[currentPlayer].CD = coolDown; 
+            }
             break;
       }
 
@@ -139,20 +143,13 @@ public class Map
             AnsiConsole.Write(new Markup("[bold yellow]Felicidades, te hiciste con el [italic]Trono de Hierro![/][/]\n"));
             Environment.Exit(0);
          }
+         if (pressedKey == ConsoleKey.UpArrow || pressedKey == ConsoleKey.DownArrow || pressedKey == ConsoleKey.LeftArrow || pressedKey == ConsoleKey.RightArrow)
+         {
+            maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
+            Program.Players[currentPlayer].Xpos = newCurrentPlayerXpos;
+            Program.Players[currentPlayer].Ypos = newCurrentPlayerYpos;
+            Program.Players[currentPlayer].MovesLeft--;
 
-         if (currentPlayer == 0 && (pressedKey == ConsoleKey.UpArrow || pressedKey == ConsoleKey.DownArrow || pressedKey == ConsoleKey.LeftArrow || pressedKey == ConsoleKey.RightArrow))
-         {
-            maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
-            Program.Players[0].Xpos = newCurrentPlayerXpos;
-            Program.Players[0].Ypos = newCurrentPlayerYpos;
-            Program.Players[0].MovesLeft--;
-         }
-         if (currentPlayer == 1 && (pressedKey == ConsoleKey.UpArrow || pressedKey == ConsoleKey.DownArrow || pressedKey == ConsoleKey.LeftArrow || pressedKey == ConsoleKey.RightArrow))
-         {
-            maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
-            Program.Players[1].Xpos = newCurrentPlayerXpos;
-            Program.Players[1].Ypos = newCurrentPlayerYpos;
-            Program.Players[1].MovesLeft--;
          }
       }
    }
