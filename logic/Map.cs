@@ -146,9 +146,11 @@ public class Map
          if (pressedKey == ConsoleKey.UpArrow || pressedKey == ConsoleKey.DownArrow || pressedKey == ConsoleKey.LeftArrow || pressedKey == ConsoleKey.RightArrow)
          {
             maze[currentPlayerXpos, currentPlayerYpos] = Cell.Floor;
-            Program.Players[currentPlayer].Xpos = newCurrentPlayerXpos;
-            Program.Players[currentPlayer].Ypos = newCurrentPlayerYpos;
-            Program.Players[currentPlayer].MovesLeft--;
+            Players[currentPlayer].Xpos = newCurrentPlayerXpos;
+            Players[currentPlayer].Ypos = newCurrentPlayerYpos;
+            Players[currentPlayer].MovesLeft--;
+            Players[currentPlayer].CD--;
+            if(Players[currentPlayer].CD < 0) Players[currentPlayer].CD = 0;
 
          }
       }
@@ -169,28 +171,32 @@ public class Map
          && pressedKey == ConsoleKey.Spacebar)
       {
          maze[currentPlayerXpos + 1, currentPlayerYpos] = Cell.Floor;
-         Players[currentPlayer].MovesLeft -= 1;
+         Players[currentPlayer].MovesLeft--;
+          Players[currentPlayer].CD--;
          return false;
       } // Arriba
       else if (InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos) && maze[currentPlayerXpos - 1, currentPlayerYpos] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
       {
          maze[currentPlayerXpos - 1, currentPlayerYpos] = Cell.Floor;
-         Players[currentPlayer].MovesLeft -= 1;
+         Players[currentPlayer].MovesLeft--;
+          Players[currentPlayer].CD--;
          return false;
       }// Abajo
       else if (InsideOfBounds(currentPlayerXpos, currentPlayerYpos + 1) && maze[currentPlayerXpos, currentPlayerYpos + 1] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
       {
          maze[currentPlayerXpos, currentPlayerYpos + 1] = Cell.Floor;
-         Players[currentPlayer].MovesLeft -= 1;
+         Players[currentPlayer].MovesLeft--;
+          Players[currentPlayer].CD--;
          return false;
       }  // Izquierda
       else if (InsideOfBounds(currentPlayerXpos, currentPlayerYpos - 1) && maze[currentPlayerXpos, currentPlayerYpos - 1] == Cell.BricksObstacle
          && pressedKey == ConsoleKey.Spacebar)
       {
          maze[currentPlayerXpos, currentPlayerYpos - 1] = Cell.Floor;
-         Players[currentPlayer].MovesLeft -= 1;
+         Players[currentPlayer].MovesLeft--;
+         Players[currentPlayer].CD--;
          return false;
       } // Derecha 
       return maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BricksObstacle;

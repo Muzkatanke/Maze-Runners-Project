@@ -125,7 +125,7 @@ public class Menu
                 .AddItem($"{Players[0].Symbol} [bold]Health[/]", Players[0].Health, Color.Red));
         }
 
-        else
+        if (currentPlayer == 1)
         {
             AnsiConsole.Write(new BarChart()
                 .Width(45)

@@ -29,7 +29,7 @@ public class Program
         string musicRoute = "D:\\proyects\\PRO-YECTO\\proyecto\\Maze-Runners-Project\\music\\Game of Thrones 8-bit(MP3_160K).mp3";
         
         Menu.MainTitle();
-        Menu.TurnOnTheMusic(musicRoute);
+     //   Menu.TurnOnTheMusic(musicRoute);
         ConsoleKeyInfo pressedKey;
         AnsiConsole.MarkupLine($"\t\t\t\t\t\t\t\t\t[bold gold3_1]Press any key to start[/]");
         pressedKey = Console.ReadKey(true);
@@ -40,8 +40,6 @@ public class Program
         
         do
         {
-            Players[currentPlayer].CD--;
-            //manejar cuando cd se haga < 0
             if (currentPlayer == 0)
             {
                 if (Players[0].Health <= 10)
@@ -55,6 +53,8 @@ public class Program
                 Map.PrintMaze(Map.maze, Players);
 
                 AnsiConsole.MarkupLine($"[bold]Current PLayer: {Players[0].Symbol}\t\tMoves Left: {Players[0].MovesLeft}\t\tCD Hability: {Players[0].CD}[/]");
+                if (Players[0].CD == 0) AnsiConsole.MarkupLine("Habilidad Disponible!!");
+
                 Menu.PrintHealthBar(Players, 0);
                 AnsiConsole.Write(new Markup("[dim]NOTE: Press [slowblink blue]<Start>[/] to use your hability or [rapidblink blue]<Space>[/] to break an obstacle[/]"));
 

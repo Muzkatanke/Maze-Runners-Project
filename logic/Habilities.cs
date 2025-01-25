@@ -29,26 +29,28 @@ public class Habilities
 
     public static void Longclaw(int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, Cell[,] maze, List<Player> Players )
     {
-    
         if(currentPlayer == 0)
         {
             if (Map.InsideOfBounds(currentPlayerXpos + 1, currentPlayerYpos) && maze[currentPlayerXpos + 1, currentPlayerYpos] == maze[Players[1].Xpos, Players[1].Ypos])
             {
                 Players[1].Health-=30;
+                Players[0].MovesLeft--;
             } // Arriba
             else if (Map.InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos) && maze[currentPlayerXpos - 1, currentPlayerYpos] == maze[Players[1].Xpos, Players[1].Ypos])
             {
                 Players[1].Health-=30;
+                Players[0].MovesLeft--;
             }
             else if (Map.InsideOfBounds(currentPlayerXpos, currentPlayerYpos + 1) && maze[currentPlayerXpos, currentPlayerYpos + 1] == maze[Players[1].Xpos, Players[1].Ypos])
             {
                 Players[1].Health-=30;
+                Players[0].MovesLeft--;
             }
             else if (Map.InsideOfBounds(currentPlayerXpos, currentPlayerYpos - 1) && maze[currentPlayerXpos, currentPlayerYpos - 1] == maze[Players[1].Xpos, Players[1].Ypos])
             {
                 Players[1].Health-=30;
+                Players[0].MovesLeft--;
             }
-            Players[0].MovesLeft--;
         }
 
         else if (currentPlayer == 1)
@@ -56,20 +58,23 @@ public class Habilities
             if (Map.InsideOfBounds(currentPlayerXpos + 1, currentPlayerYpos) && maze[currentPlayerXpos + 1, currentPlayerYpos] == maze[Players[0].Xpos, Players[0].Ypos])
             {
                 Players[0].Health-=30;
+                Players[1].MovesLeft--;
             }
             else if (Map.InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos) && maze[currentPlayerXpos - 1, currentPlayerYpos] == maze[Players[0].Xpos, Players[0].Ypos])
             {
                 Players[0].Health-=30;
+                Players[1].MovesLeft--;
             }
             else if (Map.InsideOfBounds(currentPlayerXpos, currentPlayerYpos + 1) && maze[currentPlayerXpos, currentPlayerYpos + 1] == maze[Players[0].Xpos, Players[0].Ypos])
             {
                 Players[0].Health-=30;
+                Players[1].MovesLeft--;
             }
             else if (Map.InsideOfBounds(currentPlayerXpos, currentPlayerYpos - 1) && maze[currentPlayerXpos, currentPlayerYpos - 1] == maze[Players[0].Xpos, Players[0].Ypos])
             {
                 Players[0].Health-=30;
+                Players[1].MovesLeft--;
             }
-            Players[1].MovesLeft--;
         }
     }
     public static void Charlatan()
