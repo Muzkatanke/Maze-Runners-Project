@@ -7,7 +7,7 @@ public class Skills
         switch (Players[currentPlayer].Symbol)
         {
             case "🐺":
-                Longclaw2(currentPlayer, currentPlayerXpos, currentPlayerYpos, maze, Players);
+                Longclaw(currentPlayer, currentPlayerXpos, currentPlayerYpos, maze, Players);
                 break;
             case "🦁":
                 Charlatan();
@@ -16,10 +16,10 @@ public class Skills
                 MotherOfDragons();
                 break;
             case "🎭":
-                Insight();
+                Insight(currentPlayerXpos, currentPlayerYpos, maze);
                 break;
             case "🦌":
-                LastBreath(currentPlayer, Players);
+                DeerVigor(currentPlayer, Players);
                 break;
             case "💀":
                 Invoke();
@@ -29,52 +29,19 @@ public class Skills
 
     public static void Longclaw(int currentPlayer, int currentPlayerXpos, int currentPlayerYpos, Cell[,] maze, List<Player> Players)
     {
-        bool attacked = false;
-        int enemyPlayer = currentPlayer == 0 ? 1 : 0;
-
-        // Check all directions for the presence of another player
-        if (Map.InsideOfBounds(currentPlayerXpos + 1, currentPlayerYpos) && maze[currentPlayerXpos + 1, currentPlayerYpos] == maze[Players[enemyPlayer].Xpos, Players[enemyPlayer].Ypos])
-        {
-            Players[enemyPlayer].Health -= 30;
-            Players[currentPlayer].MovesLeft--;
-            attacked = true;
-        }
-        else if (Map.InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos) && maze[currentPlayerXpos - 1, currentPlayerYpos] == maze[Players[enemyPlayer].Xpos, Players[enemyPlayer].Ypos])
-        {
-            Players[enemyPlayer].Health -= 30;
-            Players[currentPlayer].MovesLeft--;
-            attacked = true;
-        }
-        else if (Map.InsideOfBounds(currentPlayerXpos, currentPlayerYpos + 1) && maze[currentPlayerXpos, currentPlayerYpos + 1] == maze[Players[enemyPlayer].Xpos, Players[enemyPlayer].Ypos])
-        {
-            Players[enemyPlayer].Health -= 30;
-            Players[currentPlayer].MovesLeft--;
-            attacked = true;
-        }
-        else if (Map.InsideOfBounds(currentPlayerXpos, currentPlayerYpos - 1) && maze[currentPlayerXpos, currentPlayerYpos - 1] == maze[Players[enemyPlayer].Xpos, Players[enemyPlayer].Ypos])
-        {
-            Players[enemyPlayer].Health -= 30;
-            Players[currentPlayer].MovesLeft--;
-            attacked = true;
-        }
-
-        if (!attacked)
-        {
-            Players[currentPlayer].CD = 0;
-        }
-    }
-
-    public static void Longclaw2(int currentPlayer, int currentPlayerXpos, int currentPlayerYpos, Cell[,] maze, List<Player> Players)
-    {
 
         int enemyPlayer = currentPlayer == 0 ? 1 : 0;
 
         List<(int, int)> positionsToCheck = new List<(int, int)>
         {
+            (currentPlayerXpos, currentPlayerYpos + 1),
+            (currentPlayerXpos, currentPlayerYpos - 1),
             (currentPlayerXpos + 1, currentPlayerYpos),
             (currentPlayerXpos - 1, currentPlayerYpos),
-            (currentPlayerXpos, currentPlayerYpos + 1),
-            (currentPlayerXpos, currentPlayerYpos - 1)
+            (currentPlayerXpos - 1, currentPlayerYpos + 1),
+            (currentPlayerXpos + 1, currentPlayerYpos - 1),
+            (currentPlayerXpos + 1, currentPlayerYpos + 1),
+            (currentPlayerXpos - 1, currentPlayerYpos - 1)
         };
 
         bool attacked = false;
@@ -86,24 +53,28 @@ public class Skills
                 Players[enemyPlayer].Health -= 30;
                 Players[currentPlayer].MovesLeft--;
                 attacked = true;
-                break; 
+                break;
             }
         }
-        
         if (!attacked)
         {
             Players[currentPlayer].CD = 0;
         }
     }
 
-    public static void LastBreath(int currentPlayer, List<Player> Players)
+    public static void DeerVigor(int currentPlayer, List<Player> Players)
     {
-        Players[currentPlayer].Strength = 5;
-        Players[currentPlayer].Agility = 5;
-        Players[currentPlayer].Intellect = 5;
-        Players[currentPlayer].Health = 50;
+        Players[currentPlayer].Health += 30;
+        if (Players[currentPlayer].Health > 100) Players[currentPlayer].Health = 100;
+
+
+        Players[currentPlayer].Speed += 1;
+        if (Players[currentPlayer].Speed > 4) Players[currentPlayer].Speed = 4;
+
+
         Players[currentPlayer].MovesLeft--;
     }
+
     public static void Charlatan()
     {
 
@@ -112,35 +83,27 @@ public class Skills
     {
 
     }
-    public static void Insight()
+    public static void Insight(int currentPlayerXpos, int currentPlayerYpos, Cell[,] maze)
     {
+        List<(int, int)> positionsToCheck = new List<(int, int)>
+        {
+            (currentPlayerXpos, currentPlayerYpos + 1),
+            (currentPlayerXpos, currentPlayerYpos - 1),
+            (currentPlayerXpos + 1, currentPlayerYpos),
+            (currentPlayerXpos - 1, currentPlayerYpos),
+        };
 
+        foreach (var (x, y) in positionsToCheck)
+        {
+            if (Map.InsideOfBounds(x, y) && maze[x, y] == Cell.BurstTrap || maze[x, y] == Cell.RiddleTrap || maze[x, y] == Cell.OilTrap)
+            {
+                maze[x, y] = Cell.Floor;
+                break;
+            }
+        }
     }
     public static void Invoke()
     {
 
     }
-
-
-}/*
-else if (Map.InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos + 1) && maze[currentPlayerXpos - 1, currentPlayerYpos + 1] == maze[Players[1].Xpos, Players[1].Ypos])
-            {
-                Players[0].Health-=30;
-                Players[1].MovesLeft--;
-            }
-            else if (Map.InsideOfBounds(currentPlayerXpos + 1, currentPlayerYpos - 1) && maze[currentPlayerXpos + 1, currentPlayerYpos - 1] == maze[Players[1].Xpos, Players[1].Ypos])
-            {
-                Players[0].Health-=30;
-                Players[1].MovesLeft--;
-            }
-            else if (Map.InsideOfBounds(currentPlayerXpos + 1, currentPlayerYpos + 1) && maze[currentPlayerXpos + 1, currentPlayerYpos + 1] == maze[Players[1].Xpos, Players[1].Ypos])
-            {
-                Players[0].Health-=30;
-                Players[1].MovesLeft--;
-            }
-            else if (Map.InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos - 1) && maze[currentPlayerXpos - 1, currentPlayerYpos - 1] == maze[Players[1].Xpos, Players[1].Ypos])
-            {
-                Players[0].Health-=30;
-                Players[1].MovesLeft--;
-            }
-            */
+}

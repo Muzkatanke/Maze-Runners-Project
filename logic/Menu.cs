@@ -116,6 +116,7 @@ public class Menu
                 break;
         }
     }
+
     public static void PrintHealthBar(List<Player> Players, int currentPlayer)
     {
         if (currentPlayer == 0)
