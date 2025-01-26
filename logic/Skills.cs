@@ -12,8 +12,8 @@ public class Skills
             case "🦁":
                 Charlatan();
                 break;
-            case "🐉":
-                MotherOfDragons();
+            case "🐲":
+                MotherOfDragons(currentPlayer, Players);
                 break;
             case "🎭":
                 Insight(currentPlayerXpos, currentPlayerYpos, maze);
@@ -62,25 +62,16 @@ public class Skills
         }
     }
 
-    public static void DeerVigor(int currentPlayer, List<Player> Players)
-    {
-        Players[currentPlayer].Health += 30;
-        if (Players[currentPlayer].Health > 100) Players[currentPlayer].Health = 100;
-
-
-        Players[currentPlayer].Speed += 1;
-        if (Players[currentPlayer].Speed > 4) Players[currentPlayer].Speed = 4;
-
-
-        Players[currentPlayer].MovesLeft--;
-    }
-
     public static void Charlatan()
     {
 
     }
-    public static void MotherOfDragons()
+    public static void MotherOfDragons(int currentPlayer, List<Player> Players)
     {
+        Players[currentPlayer].Symbol = "🐉";
+        Players[currentPlayer].Health = 1000;
+        Players[currentPlayer].Speed = 6;
+        Players[currentPlayer].MovesLeft = Players[currentPlayer].Speed;
 
     }
     public static void Insight(int currentPlayerXpos, int currentPlayerYpos, Cell[,] maze)
@@ -101,6 +92,19 @@ public class Skills
                 break;
             }
         }
+    }
+    public static void DeerVigor(int currentPlayer, List<Player> Players)
+    {
+        Players[currentPlayer].Health += 30;
+        if (Players[currentPlayer].Health > 100) Players[currentPlayer].Health = 100;
+
+
+        Players[currentPlayer].Speed += 1;
+        Players[currentPlayer].MovesLeft = Players[currentPlayer].Speed;
+        if (Players[currentPlayer].Speed > 4) Players[currentPlayer].Speed = 4;
+
+
+        Players[currentPlayer].MovesLeft--;
     }
     public static void Invoke()
     {

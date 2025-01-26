@@ -135,6 +135,7 @@ public class Map
          {
             Players[currentPlayer].Agility = 5;
             Players[currentPlayer].Speed += 1;
+            Players[currentPlayer].MovesLeft = Players[currentPlayer].Speed;
          }
 
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Throne)

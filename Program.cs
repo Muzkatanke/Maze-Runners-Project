@@ -10,11 +10,11 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Program
 {
-    public static Player Snow = new Player(0, 0, "🐺", 3, 3, 4, 3, 3, 100);
+    public static Player Snow = new Player(0, 0, "🐺", 3, 10, 4, 3, 3, 100);
     public static Player Tyrion = new Player(0, 1, "🦁", 2, 2, 1, 2, 4, 100);
-    public static Player Daenerys = new Player(1, 0, "🐉", 3, 3, 2, 3, 3, 100);
-    public static Player Arya = new Player(1, 1, "🎭", 4, 4, 2, 4, 4, 100);
-    public static Player Robert = new Player(1, 2, "🦌", 2, 2, 4, 2, 2, 100);
+    public static Player Daenerys = new Player(1, 0, "🐲", 3, 50, 2, 3, 3, 100);
+    public static Player Arya = new Player(1, 1, "🎭", 4, 10, 2, 4, 4, 100);
+    public static Player Robert = new Player(1, 2, "🦌", 2, 10, 4, 2, 2, 100);
     public static Player NightKing = new Player(1, 1, "💀", 2, 2, 4, 2, 4, 100);
 
     public static List<Player> Players = new List<Player>(2);

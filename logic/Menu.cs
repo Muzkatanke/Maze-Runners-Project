@@ -45,7 +45,7 @@ public class Menu
             "[italic]The Blind Child[/] [bold blue][underline]Arya Stark[/][/] 🎭\n",
             "[italic]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/] 🦌\n",
             "[italic]The First White Walker[/] [bold white][underline] El Rey de la Noche[/][/] 💀\n",
-            "[italic]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐉"
+            "[italic]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲"
         };
 
         var characterSelection1 = AnsiConsole.Prompt(
@@ -90,7 +90,7 @@ public class Menu
             case "[italic]The First White Walker[/] [bold white][underline] El Rey de la Noche[/][/] 💀\n":
                 Program.Players.Add(Program.NightKing);
                 break;
-            case "[italic]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐉":
+            case "[italic]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲":
                 Program.Players.Add(Program.Daenerys);
                 break;
         }
@@ -111,7 +111,7 @@ public class Menu
             case "[italic]The First White Walker[/] [bold white][underline] El Rey de la Noche[/][/] 💀\n":
                 Program.Players.Add(Program.NightKing);
                 break;
-            case "[italic]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐉":
+            case "[italic]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲":
                 Program.Players.Add(Program.Daenerys);
                 break;
         }
