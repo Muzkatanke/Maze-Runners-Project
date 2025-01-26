@@ -78,7 +78,7 @@ public class Map
       panel.Header("Maze", Justify.Center);
       AnsiConsole.Write(panel);
    }
-   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players, int coolDown)
+   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players, int[] coolDowns)
    {
       int newCurrentPlayerXpos = currentPlayerXpos;
       int newCurrentPlayerYpos = currentPlayerYpos;
@@ -98,10 +98,10 @@ public class Map
             newCurrentPlayerYpos--;
             break;
          case ConsoleKey.Enter:
-            if(Players[currentPlayer].CD == 0) 
+            if (Players[currentPlayer].CD == 0)
             {
-               Habilities.WhoPressed(currentPlayer, Players, currentPlayerXpos, currentPlayerYpos, maze);
-               Players[currentPlayer].CD = coolDown; 
+               Skills.WhoPressed(currentPlayer, Players, currentPlayerXpos, currentPlayerYpos, maze);
+               Players[currentPlayer].CD = coolDowns[currentPlayer];
             }
             break;
       }
@@ -150,7 +150,7 @@ public class Map
             Players[currentPlayer].Ypos = newCurrentPlayerYpos;
             Players[currentPlayer].MovesLeft--;
             Players[currentPlayer].CD--;
-            if(Players[currentPlayer].CD < 0) Players[currentPlayer].CD = 0;
+            if (Players[currentPlayer].CD < 0) Players[currentPlayer].CD = 0;
 
          }
       }
@@ -172,7 +172,7 @@ public class Map
       {
          maze[currentPlayerXpos + 1, currentPlayerYpos] = Cell.Floor;
          Players[currentPlayer].MovesLeft--;
-          Players[currentPlayer].CD--;
+         Players[currentPlayer].CD--;
          return false;
       } // Arriba
       else if (InsideOfBounds(currentPlayerXpos - 1, currentPlayerYpos) && maze[currentPlayerXpos - 1, currentPlayerYpos] == Cell.BricksObstacle
@@ -180,7 +180,7 @@ public class Map
       {
          maze[currentPlayerXpos - 1, currentPlayerYpos] = Cell.Floor;
          Players[currentPlayer].MovesLeft--;
-          Players[currentPlayer].CD--;
+         Players[currentPlayer].CD--;
          return false;
       }// Abajo
       else if (InsideOfBounds(currentPlayerXpos, currentPlayerYpos + 1) && maze[currentPlayerXpos, currentPlayerYpos + 1] == Cell.BricksObstacle
@@ -188,7 +188,7 @@ public class Map
       {
          maze[currentPlayerXpos, currentPlayerYpos + 1] = Cell.Floor;
          Players[currentPlayer].MovesLeft--;
-          Players[currentPlayer].CD--;
+         Players[currentPlayer].CD--;
          return false;
       }  // Izquierda
       else if (InsideOfBounds(currentPlayerXpos, currentPlayerYpos - 1) && maze[currentPlayerXpos, currentPlayerYpos - 1] == Cell.BricksObstacle

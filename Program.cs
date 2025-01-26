@@ -29,14 +29,16 @@ public class Program
         string musicRoute = "D:\\proyects\\PRO-YECTO\\proyecto\\Maze-Runners-Project\\music\\Game of Thrones 8-bit(MP3_160K).mp3";
         
         Menu.MainTitle();
-     //   Menu.TurnOnTheMusic(musicRoute);
+        Menu.TurnOnTheMusic(musicRoute);
         ConsoleKeyInfo pressedKey;
         AnsiConsole.MarkupLine($"\t\t\t\t\t\t\t\t\t[bold gold3_1]Press any key to start[/]");
         pressedKey = Console.ReadKey(true);
 
-        
         Menu.PrintMainMenu();
-        int coolDown = Players[currentPlayer].CD;
+
+        //revisar hab de robert
+
+        int[] coolDowns = {Players[0].CD, Players[1].CD};
         
         do
         {
@@ -59,7 +61,7 @@ public class Program
                 AnsiConsole.Write(new Markup("[dim]NOTE: Press [slowblink blue]<Start>[/] to use your hability or [rapidblink blue]<Space>[/] to break an obstacle[/]"));
 
                 pressedKey = Console.ReadKey(true);
-                Map.MovePlayer(pressedKey.Key, Players[0].Xpos, Players[0].Ypos, 0, Players, coolDown);
+                Map.MovePlayer(pressedKey.Key, Players[0].Xpos, Players[0].Ypos, 0, Players, coolDowns);
             }
             if (Players[0].MovesLeft == 0) currentPlayer = 1;
 
@@ -75,12 +77,14 @@ public class Program
                 Console.Clear();
                 Map.PrintMaze(Map.maze, Players);
 
-                AnsiConsole.MarkupLine($"[bold]Current PLayer: {Players[1].Symbol}\t\tMoves Left: {Players[1].MovesLeft}[/]");
+                AnsiConsole.MarkupLine($"[bold]Current PLayer: {Players[1].Symbol}\t\tMoves Left: {Players[1].MovesLeft}\t\tCD Hability: {Players[1].CD}[/]");
+                if (Players[1].CD == 0) AnsiConsole.MarkupLine("Habilidad Disponible!!");
+
                 Menu.PrintHealthBar(Players, 1);
                 AnsiConsole.Markup("[dim]NOTE: Press [blue]<Start>[/] to use your hability or [blue]<Space>[/] to break an obstacle[/]");
 
                 pressedKey = Console.ReadKey(true);
-                Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1, Players, coolDown);
+                Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1, Players, coolDowns);
             }
             if (Players[1].MovesLeft == 0) currentPlayer = 0;
            

@@ -129,7 +129,7 @@ public class Menu
         {
             AnsiConsole.Write(new BarChart()
                 .Width(45)
-                .AddItem($"{Players[1].Symbol} [bold]Health[/]", Players[1].Health, Color.Red));
+                .AddItem($"{Players[1].Symbol} [bold]Health[/]", Players[1].Health, Color.Blue));
         }
     }
     public static void MainTitle()
