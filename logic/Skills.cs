@@ -10,7 +10,7 @@ public class Skills
                 Longclaw(currentPlayer, currentPlayerXpos, currentPlayerYpos, maze, Players);
                 break;
             case "🦁":
-                Charlatan();
+                WizardTyrion(currentPlayer, currentPlayerXpos, currentPlayerYpos, maze, Players);
                 break;
             case "🐲":
                 MotherOfDragons(currentPlayer, Players);
@@ -62,9 +62,35 @@ public class Skills
         }
     }
 
-    public static void Charlatan()
+    public static void WizardTyrion(int currentPlayer, int currentPlayerXpos, int currentPlayerYpos, Cell[,] maze, List<Player> Players)
     {
+        Random random = new Random();
+    
+        List<(int, int)> positionsToCheck = new List<(int, int)>
+        {
+            (currentPlayerXpos, currentPlayerYpos + 1),
+            (currentPlayerXpos, currentPlayerYpos - 1),
+            (currentPlayerXpos + 1, currentPlayerYpos),
+            (currentPlayerXpos - 1, currentPlayerYpos),
+        };
 
+        foreach (var (x, y) in positionsToCheck)
+        {
+            if (Map.InsideOfBounds(x, y) && maze[x, y] == Cell.Floor)
+            {
+                switch(random.Next(1, 3))
+                {
+                    case 1:
+                        maze[x, y] = Cell.ArborGold;
+                        break;
+                    case 2:
+                        maze[x, y] = Cell.DornishRed;
+                        break;
+                }
+                Players[currentPlayer].MovesLeft--;
+                break;
+            }
+        }
     }
     public static void MotherOfDragons(int currentPlayer, List<Player> Players)
     {
@@ -98,9 +124,11 @@ public class Skills
         Players[currentPlayer].Health += 30;
         if (Players[currentPlayer].Health > 100) Players[currentPlayer].Health = 100;
 
-
-        Players[currentPlayer].Speed += 1;
-        Players[currentPlayer].MovesLeft = Players[currentPlayer].Speed;
+        if (Players[currentPlayer].Health >= 80)
+        {
+            Players[currentPlayer].Speed += 1;
+            Players[currentPlayer].MovesLeft = Players[currentPlayer].Speed;
+        }
         if (Players[currentPlayer].Speed > 4) Players[currentPlayer].Speed = 4;
 
 
