@@ -22,7 +22,7 @@ public class Skills
                 DeerVigor(currentPlayer, Players);
                 break;
             case "💀":
-                Invoke();
+                Curse(currentPlayer, Players);
                 break;
         }
     }
@@ -134,8 +134,15 @@ public class Skills
 
         Players[currentPlayer].MovesLeft--;
     }
-    public static void Invoke()
+    public static void Curse(int currentPlayer, List<Player> Players)
     {
+        int enemyPlayer = currentPlayer == 0 ? 1 : 0;
+        Players[enemyPlayer].Health-=25;
+        Players[enemyPlayer].Speed--;
 
+        if(Players[enemyPlayer].Speed == 1) Players[enemyPlayer].Speed = 1;
+
+        Players[enemyPlayer].MovesLeft = Players[enemyPlayer].Speed;
+        Players[currentPlayer].MovesLeft--;
     }
 }
