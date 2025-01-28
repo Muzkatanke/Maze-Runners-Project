@@ -100,7 +100,7 @@ public class Map
          case ConsoleKey.Enter:
             if (Players[currentPlayer].CD == 0)
             {
-               Skills.WhoPressed(currentPlayer, Players, currentPlayerXpos, currentPlayerYpos, maze);
+             //  Skills.WhoPressed(currentPlayer, Players, currentPlayerXpos, currentPlayerYpos, maze);
                Players[currentPlayer].CD = coolDowns[currentPlayer];
             }
             break;
