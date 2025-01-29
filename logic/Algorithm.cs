@@ -1,6 +1,8 @@
 using Game.Player;
 using Game.Menu;
 using Game.Map;
+using Spectre.Console;
+
 public enum Cell
 {
     Wall, Floor, BurstTrap, RiddleTrap, OilTrap, BricksObstacle, Throne, DornishRed, ArborGold
@@ -20,13 +22,8 @@ public class Algorithm
         { Cell.ArborGold, "🍸"},
     };
 
-    public static Cell[,] maze = new Cell[10, 10];
-
-    public static Random random = new Random();
-    public static int PosX = random.Next(0, 10);
-    public static int PosY = random.Next(0, 10);
-
-
+    public static Cell[,] maze = new Cell[25, 25];
+    
     public static void InitializeMaze()
     {
         int rows = maze.GetLength(0);
@@ -43,6 +40,7 @@ public class Algorithm
 
     public static void GenerateMaze(int PosX, int PosY)
     {
+        Random random = new Random();
         maze[PosX, PosY] = Cell.Floor;
 
         List<(int, int)> Directions = new List<(int, int)>
@@ -86,8 +84,12 @@ public class Algorithm
     {
         return x >= 0 && y >= 0 && x < maze.GetLength(0) && y < maze.GetLength(1);
     }
-    public static void PrintMaze()
+
+
+    public static void PrintMaze(List<Player> Players)
     {
+        Console.Clear();
+
         int rows = maze.GetLength(0);
         int cols = maze.GetLength(1);
 
@@ -95,12 +97,20 @@ public class Algorithm
         {
             for (int j = 0; j < cols; j++)
             {
-                Console.Write(CellSymbols[maze[i, j]] + " ");
+                if (i == Players[0].Xpos && j == Players[0].Ypos)
+                {
+                    Console.Write(Players[0].Symbol);
+                }
+                else if (i == Players[1].Xpos && j == Players[1].Ypos)
+                {
+                    Console.Write(Players[1].Symbol);
+                }
+                else Console.Write(CellSymbols[maze[i, j]] + " ");
+
             }
             Console.WriteLine();
         }
     }
 }
-
 
 

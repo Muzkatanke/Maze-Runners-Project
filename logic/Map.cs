@@ -4,40 +4,10 @@ using Game.Player;
 using Game.Menu;
 namespace Game.Map;
 
-public enum Cell
-{
-   Wall, Floor, BurstTrap, RiddleTrap, OilTrap, BricksObstacle, Throne, DornishRed, ArborGold
-};
-
 public class Map
 {
-   public static Dictionary<Cell, string> CellSymbols = new Dictionary<Cell, string>
-   {
-      { Cell.Wall, "🟥" },
-      { Cell.Floor, "◾" },
-      { Cell.BurstTrap, "🔥" },
-      { Cell.RiddleTrap, "🧩" },
-      { Cell.OilTrap, "♨️" },
-      { Cell.BricksObstacle, "🧱" },
-      { Cell.Throne, "👑"},
-      { Cell.DornishRed, "🍷"},
-      { Cell.ArborGold, "🍸"},
-   };
-
-   public static Cell[,] maze = new Cell[10, 10]
-   {
-      { Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Floor, Cell.Floor, Cell.RiddleTrap, Cell.OilTrap, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.BurstTrap, Cell.BricksObstacle, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.DornishRed, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Floor, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Floor, Cell.Floor, Cell.Floor, Cell.Wall, Cell.Wall },
-      { Cell.BurstTrap, Cell.Floor, Cell.Wall, Cell.DornishRed, Cell.Wall,Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.ArborGold, Cell.Floor, Cell.BricksObstacle, Cell.Floor,Cell.Floor, Cell.Floor, Cell.ArborGold, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Wall, Cell.Floor, Cell.Wall, Cell.Wall,Cell.Floor, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Floor, Cell.Floor, Cell.RiddleTrap, Cell.Floor,Cell.BricksObstacle, Cell.BurstTrap, Cell.Floor, Cell.Wall, Cell.Wall },
-      { Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall, Cell.Wall,Cell.Wall, Cell.Wall, Cell.Throne, Cell.Wall, Cell.Wall },
-   };
-
+   
+  /* 
    public static void PrintMaze(Cell[,] maze, List<Player.Player> Players)
    {
       Console.Clear();
@@ -78,7 +48,8 @@ public class Map
       panel.Header("Maze", Justify.Center);
       AnsiConsole.Write(panel);
    }
-   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players, int[] coolDowns)
+   */
+   public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players, int[] coolDowns, Cell[,] maze)
    {
       int newCurrentPlayerXpos = currentPlayerXpos;
       int newCurrentPlayerYpos = currentPlayerYpos;
@@ -100,14 +71,14 @@ public class Map
          case ConsoleKey.Enter:
             if (Players[currentPlayer].CD == 0)
             {
-             //  Skills.WhoPressed(currentPlayer, Players, currentPlayerXpos, currentPlayerYpos, maze);
+               Skills.WhoPressed(currentPlayer, Players, currentPlayerXpos, currentPlayerYpos, maze);
                Players[currentPlayer].CD = coolDowns[currentPlayer];
             }
             break;
       }
 
 
-      if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos, Players, currentPlayer))
+      if (!Collision(newCurrentPlayerXpos, newCurrentPlayerYpos, Algorithm.maze) && !Obstacle(pressedKey, currentPlayerXpos, currentPlayerYpos, newCurrentPlayerXpos, newCurrentPlayerYpos, Players, currentPlayer, Algorithm.maze))
       {
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.RiddleTrap && Players[currentPlayer].Intellect < 5)
          {
@@ -157,7 +128,7 @@ public class Map
       }
    }
 
-   public static bool Collision(int newCurrentPlayerXpos, int newCurrentPlayerYpos)
+   public static bool Collision(int newCurrentPlayerXpos, int newCurrentPlayerYpos, Cell[,] maze)
    {
       if (newCurrentPlayerXpos < 0 || newCurrentPlayerXpos >= maze.GetLength(0) || newCurrentPlayerYpos < 0 || newCurrentPlayerYpos >= maze.GetLength(1))
       {
@@ -166,7 +137,7 @@ public class Map
       return maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.Wall;
    }
 
-   public static bool Obstacle(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int newCurrentPlayerXpos, int newCurrentPlayerYpos, List<Player.Player> Players, int currentPlayer)
+   public static bool Obstacle(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int newCurrentPlayerXpos, int newCurrentPlayerYpos, List<Player.Player> Players, int currentPlayer, Cell[,] maze)
    {
 
       List<(int, int)> positionsToCheck = new List<(int, int)>
@@ -198,7 +169,7 @@ public class Map
 
    public static bool InsideOfBounds(int currentPlayerXpos, int currentPlayerYpos)
    {
-      if (currentPlayerXpos >= 0 && currentPlayerXpos < maze.GetLength(0) && currentPlayerYpos >= 0 && currentPlayerYpos < maze.GetLength(1))
+      if (currentPlayerXpos >= 0 && currentPlayerXpos < Algorithm.maze.GetLength(0) && currentPlayerYpos >= 0 && currentPlayerYpos < Algorithm.maze.GetLength(1))
       {
          return true;
       }

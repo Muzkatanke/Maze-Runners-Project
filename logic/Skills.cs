@@ -65,7 +65,7 @@ public class Skills
     public static void WizardTyrion(int currentPlayer, int currentPlayerXpos, int currentPlayerYpos, Cell[,] maze, List<Player> Players)
     {
         Random random = new Random();
-    
+
         List<(int, int)> positionsToCheck = new List<(int, int)>
         {
             (currentPlayerXpos, currentPlayerYpos + 1),
@@ -78,7 +78,7 @@ public class Skills
         {
             if (Map.InsideOfBounds(x, y) && maze[x, y] == Cell.Floor)
             {
-                switch(random.Next(1, 3))
+                switch (random.Next(1, 3))
                 {
                     case 1:
                         maze[x, y] = Cell.ArborGold;
@@ -137,10 +137,10 @@ public class Skills
     public static void Curse(int currentPlayer, List<Player> Players)
     {
         int enemyPlayer = currentPlayer == 0 ? 1 : 0;
-        Players[enemyPlayer].Health-=25;
+        Players[enemyPlayer].Health -= 25;
         Players[enemyPlayer].Speed--;
 
-        if(Players[enemyPlayer].Speed == 1) Players[enemyPlayer].Speed = 1;
+        if (Players[enemyPlayer].Speed == 1) Players[enemyPlayer].Speed = 1;
 
         Players[enemyPlayer].MovesLeft = Players[enemyPlayer].Speed;
         Players[currentPlayer].MovesLeft--;
