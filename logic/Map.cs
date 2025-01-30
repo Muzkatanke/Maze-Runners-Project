@@ -6,49 +6,6 @@ namespace Game.Map;
 
 public class Map
 {
-   
-  /* 
-   public static void PrintMaze(Cell[,] maze, List<Player.Player> Players)
-   {
-      Console.Clear();
-
-      int rows = maze.GetLength(0);
-      int cols = maze.GetLength(1);
-
-      var table = new Table();
-      table.Border(TableBorder.Horizontal);
-
-      for (int j = 0; j < cols; j++)
-      {
-         table.AddColumn(new TableColumn(""));
-      }
-
-      for (int i = 0; i < rows; i++)
-      {
-         var rowContent = new List<string>();
-         for (int j = 0; j < cols; j++)
-         {
-            if (i == Players[0].Xpos && j == Players[0].Ypos)
-            {
-               rowContent.Add(Players[0].Symbol);
-            }
-            else if (i == Players[1].Xpos && j == Players[1].Ypos)
-            {
-               rowContent.Add(Players[1].Symbol);
-            }
-            else rowContent.Add(CellSymbols[maze[i, j]].ToString());
-
-         }
-         table.AddRow(rowContent.ToArray());
-      }
-      table.HideHeaders();
-
-      var panel = new Panel(table);
-      panel.Border = BoxBorder.Double;
-      panel.Header("Maze", Justify.Center);
-      AnsiConsole.Write(panel);
-   }
-   */
    public static void MovePlayer(ConsoleKey pressedKey, int currentPlayerXpos, int currentPlayerYpos, int currentPlayer, List<Player.Player> Players, int[] coolDowns, Cell[,] maze)
    {
       int newCurrentPlayerXpos = currentPlayerXpos;

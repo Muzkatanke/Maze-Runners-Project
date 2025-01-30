@@ -4,6 +4,7 @@ using Game.Player;
 using NAudio.Wave;
 public class Menu
 {
+    
     public static void PrintMainMenu()
     {
         Console.Clear();

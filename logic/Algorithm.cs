@@ -15,7 +15,7 @@ public class Algorithm
         { Cell.Floor, "◾" },
         { Cell.BurstTrap, "🔥" },
         { Cell.RiddleTrap, "🧩" },
-        { Cell.OilTrap, "♨️" },
+        { Cell.OilTrap, "♨️ " },
         { Cell.BricksObstacle, "🧱" },
         { Cell.Throne, "👑"},
         { Cell.DornishRed, "🍷"},
@@ -23,7 +23,7 @@ public class Algorithm
     };
 
     public static Cell[,] maze = new Cell[25, 25];
-    
+
     public static void InitializeMaze()
     {
         int rows = maze.GetLength(0);
@@ -36,6 +36,7 @@ public class Algorithm
                 maze[i, j] = Cell.Wall;
             }
         }
+        
     }
 
     public static void GenerateMaze(int PosX, int PosY)
@@ -60,12 +61,60 @@ public class Algorithm
                 GenerateMaze(newPosX, newPosY);
             }
         }
+        
+        
     }
+
+    public static void PlacingElements(int numbObstacles, int numbWines, int numbTraps)
+    {
+        Random random = new Random();
+        int rows = maze.GetLength(0);
+        int cols = maze.GetLength(1);
+
+        for(int i = 0; i < numbObstacles; i++)
+        {
+            int PosX = random.Next(1, rows - 1);
+            int PosY = random.Next(1, cols - 1);
+
+            if(maze[PosX, PosY] != Cell.Throne)
+            {
+                maze[PosX, PosY] = Cell.BricksObstacle;
+            }
+        }
+
+        Cell[] traps = {Cell.OilTrap, Cell.RiddleTrap, Cell.BurstTrap};
+
+        for(int i = 0; i < numbTraps; i++)
+        {
+            int PosX = random.Next(1, rows - 1);
+            int PosY = random.Next(1, cols - 1);
+
+            if(maze[PosX, PosY] != Cell.Wall && maze[PosX, PosY] != Cell.Throne)
+            {
+                maze[PosX, PosY] = traps[random.Next(0, 3)];
+            }
+        }
+
+        Cell[] wines = {Cell.ArborGold, Cell.DornishRed};
+
+        for(int i = 0; i < numbWines; i++)
+        {
+            int PosX = random.Next(1, rows - 1);
+            int PosY = random.Next(1, cols - 1);
+
+            if(maze[PosX, PosY] != Cell.Wall && maze[PosX, PosY] != Cell.Throne)
+            {
+                maze[PosX, PosY] = wines[random.Next(0, 2)];
+            }
+        }
+    }
+    
     public static void RemoveWall(int PosX, int PosY, int newPosX, int newPosY)
     {
         if (newPosX == PosX && newPosY == PosY + 2)
         {
             maze[PosX, PosY + 1] = Cell.Floor;
+
         }
         else if (newPosX == PosX && newPosY == PosY - 2)
         {
@@ -80,15 +129,18 @@ public class Algorithm
             maze[PosX - 1, PosY] = Cell.Floor;
         }
     }
+
     public static bool IsValid(int x, int y)
     {
         return x >= 0 && y >= 0 && x < maze.GetLength(0) && y < maze.GetLength(1);
     }
 
-
     public static void PrintMaze(List<Player> Players)
     {
+        maze[maze.GetLength(0) - 2, maze.GetLength(1) - 2] = Cell.Throne;
+        
         Console.Clear();
+
 
         int rows = maze.GetLength(0);
         int cols = maze.GetLength(1);

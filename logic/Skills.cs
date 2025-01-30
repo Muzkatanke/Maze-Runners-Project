@@ -6,22 +6,22 @@ public class Skills
     {
         switch (Players[currentPlayer].Symbol)
         {
-            case "🐺":
+            case "🐺 ":
                 Longclaw(currentPlayer, currentPlayerXpos, currentPlayerYpos, maze, Players);
                 break;
-            case "🦁":
+            case "🦁 ":
                 WizardTyrion(currentPlayer, currentPlayerXpos, currentPlayerYpos, maze, Players);
                 break;
-            case "🐲":
+            case "🐲 ":
                 MotherOfDragons(currentPlayer, Players);
                 break;
-            case "🎭":
+            case "🎭 ":
                 Insight(currentPlayerXpos, currentPlayerYpos, maze);
                 break;
-            case "🦌":
+            case "🦌 ":
                 DeerVigor(currentPlayer, Players);
                 break;
-            case "💀":
+            case "💀 ":
                 Curse(currentPlayer, Players);
                 break;
         }

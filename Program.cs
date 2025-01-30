@@ -10,12 +10,12 @@ using System.Security.Cryptography.X509Certificates;
 
 public class Program
 {
-    public static Player Snow = new Player(1, 1, "🐺 ", 3, 12, 4, 3, 3, 100);
-    public static Player Tyrion = new Player(0, 1, "🦁", 2, 14, 1, 2, 4, 100);
-    public static Player Daenerys = new Player(1, 0, "🐲", 3, 30, 2, 3, 3, 100);
+    public static Player Snow = new Player(1, 1, "🐺 ", 300, 12, 4, 3, 3, 100);
+    public static Player Tyrion = new Player(1, 1, "🦁 ", 2, 14, 1, 2, 4, 100);
+    public static Player Daenerys = new Player(1, 1, "🐲 ", 3, 30, 2, 3, 3, 100);
     public static Player Arya = new Player(1, 1, "🎭 ", 4, 16, 2, 4, 4, 100);
-    public static Player Robert = new Player(1, 2, "🦌", 2, 16, 4, 2, 2, 100);
-    public static Player NightKing = new Player(1, 1, "💀", 3, 21, 4, 2, 4, 100);
+    public static Player Robert = new Player(1, 1, "🦌 ", 2, 16, 4, 2, 2, 100);
+    public static Player NightKing = new Player(1, 1, "💀 ", 3, 21, 4, 2, 4, 100);
 
     public static List<Player> Players = new List<Player>(2);
     public static int currentPlayer = 0;
@@ -24,8 +24,11 @@ public class Program
 
     public static void Main(string[] args)
     {
+        Console.CursorVisible = false;
         Console.OutputEncoding = System.Text.Encoding.UTF8;
         Menu.MainTitle();
+        string musicRoute = "D:\\proyects\\PRO-YECTO\\proyecto\\Maze-Runners-Project\\music\\Game of Thrones 8-bit(MP3_160K).mp3";
+        //Menu.TurnOnTheMusic(musicRoute);
         
         ConsoleKeyInfo pressedKey;
         AnsiConsole.MarkupLine($"\t\t\t\t\t\t\t\t\t[bold gold3_1]Press any key to start[/]");
@@ -35,10 +38,10 @@ public class Program
 
         Algorithm.InitializeMaze();
         Algorithm.GenerateMaze(1, 1);
+        Algorithm.PlacingElements(10, 15, 20);
         
-        string musicRoute = "D:\\proyects\\PRO-YECTO\\proyecto\\Maze-Runners-Project\\music\\Game of Thrones 8-bit(MP3_160K).mp3";
-     //   Menu.TurnOnTheMusic(musicRoute);
         
+
 
         int[] coolDowns = {Players[0].CD, Players[1].CD};
         
@@ -89,9 +92,9 @@ public class Program
                 Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1, Players, coolDowns, Algorithm.maze);
             }
             if (Players[1].MovesLeft == 0) currentPlayer = 0;
-           
+      
 
         } while (pressedKey.Key != ConsoleKey.Escape);
-        
+  
     }
 }
