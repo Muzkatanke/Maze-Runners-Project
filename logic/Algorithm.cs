@@ -122,7 +122,7 @@ public class Algorithm
             int PosX = random.Next(1, rows - 1);
             int PosY = random.Next(1, cols - 1);
 
-            if (maze[PosX, PosY] != Cell.Throne)
+            if (maze[PosX, PosY] != Cell.Throne && maze[PosX, PosY] != Cell.Wall)
             {
                 maze[PosX, PosY] = Cell.BricksObstacle;
             }
@@ -160,7 +160,6 @@ public class Algorithm
         if (newPosX == PosX && newPosY == PosY + 2)
         {
             maze[PosX, PosY + 1] = Cell.Floor;
-
         }
         else if (newPosX == PosX && newPosY == PosY - 2)
         {

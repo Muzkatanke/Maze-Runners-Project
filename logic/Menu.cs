@@ -289,19 +289,43 @@ public class Menu
 
     public static void PrintHealthBar(List<Player> Players, int currentPlayer)
     {
-        if (currentPlayer == 0)
-        {
-            AnsiConsole.Write(new BarChart()
-                .Width(45)
-                .AddItem($"{Players[0].Symbol} [bold steelblue]Health[/]", Players[0].Health, Color.Red));
-        }
+        int player = currentPlayer == 0 ? 0 : 1;
 
-        if (currentPlayer == 1)
+        switch(Players[currentPlayer].Symbol)
         {
-            AnsiConsole.Write(new BarChart()
+            case "🐺 ":
+                AnsiConsole.Write(new BarChart()
                 .Width(45)
-                .AddItem($"{Players[1].Symbol} [bold]Health[/]", Players[1].Health, Color.Blue));
+                .AddItem($"{Players[player].Symbol} [bold steelblue]Health[/]", Players[player].Health, Color.Black));
+                break;
+            case "🦁 ":
+                AnsiConsole.Write(new BarChart()
+                .Width(45)
+                .AddItem($"{Players[player].Symbol} [bold steelblue]Health[/]", Players[player].Health, Color.Gold1));
+                break;
+            case "🐲 ":
+                AnsiConsole.Write(new BarChart()
+                .Width(45)
+                .AddItem($"{Players[player].Symbol} [bold steelblue]Health[/]", Players[player].Health, Color.Red));
+                break;
+            case "🎭 ":
+                AnsiConsole.Write(new BarChart()
+                .Width(45)
+                .AddItem($"{Players[player].Symbol} [bold steelblue]Health[/]", Players[player].Health, Color.Blue));
+                break;
+            case "🦌 ":
+                AnsiConsole.Write(new BarChart()
+                .Width(45)
+                .AddItem($"{Players[player].Symbol} [bold steelblue]Health[/]", Players[player].Health, Color.Yellow));
+                break;
+            case "💀 ":
+                AnsiConsole.Write(new BarChart()
+                .Width(45)
+                .AddItem($"{Players[player].Symbol} [bold steelblue]Health[/]", Players[player].Health, Color.White));
+                break;
+            
         }
+        
     }
     public static void MainTitle()
     {

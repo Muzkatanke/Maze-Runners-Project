@@ -7,6 +7,7 @@ using Game.Menu;
 using NAudio.Wave;
 using System.ComponentModel.Design;
 using System.Security.Cryptography.X509Certificates;
+using NAudio.Wave.SampleProviders;
 
 public class Program
 {
@@ -39,7 +40,7 @@ public class Program
         Algorithm.InitializeMaze();
         Algorithm.GenerateMaze(1, 1);
         Algorithm.PlaceThroneAtEnd(Algorithm.maze, 1, 1);
-        Algorithm.PlacingElements(10, 15, 20);
+        Algorithm.PlacingElements(8, 13, 18);
         
         
 
@@ -60,12 +61,12 @@ public class Program
                 Console.Clear();
                 Algorithm.PrintMaze(Players);
 
-                AnsiConsole.MarkupLine($"[bold]Jugador actual: {Players[0].Symbol}\t\tJugadas restantes: {Players[0].MovesLeft}\t\tCD Habilidad: {Players[0].CD}[/]\t\t");
-                if (Players[0].CD == 0) AnsiConsole.MarkupLine("Habilidad Disponible!!");
+                AnsiConsole.MarkupLine($"[bold steelblue]Jugador actual: {Players[0].Symbol}\t\tJugadas restantes: {Players[0].MovesLeft}\t\tCD Habilidad: {Players[0].CD}[/]\n");
+                if (Players[0].CD == 0) AnsiConsole.MarkupLine("[bold red]Habilidad Disponible!![/]\n");
 
                 Menu.PrintHealthBar(Players, 0);
-                AnsiConsole.MarkupLine("[dim]NOTA: Presiona [blue]<Enter>[/] para usar tu habilidad o [blue]<Barra Espaciadora>[/] para romper un obstaculo[/]");
-                AnsiConsole.MarkupLine($"[bold]Atributos:[/]\n[bold red]Fuerza - {Players[0].Strength}[/]\n[bold green]Agilidad - {Players[0].Agility}[/]\n[bold blue]Inteligencia - {Players[0].Intellect}[/]");
+                AnsiConsole.MarkupLine($"\n[bold steelblue]Atributos:[/]\n[bold red]Fuerza - {Players[0].Strength}[/]\n[bold green]Agilidad - {Players[0].Agility}[/]\n[bold blue]Inteligencia - {Players[0].Intellect}[/]\n");
+                AnsiConsole.MarkupLine("[dim]NOTA: Presiona [magenta]<Enter>[/] para usar tu habilidad o [magenta]<Barra Espaciadora>[/] para romper un obstáculo[/]");
                 pressedKey = Console.ReadKey(true);
                 Map.MovePlayer(pressedKey.Key, Players[0].Xpos, Players[0].Ypos, 0, Players, coolDowns, Algorithm.maze);
             }
@@ -83,12 +84,12 @@ public class Program
                 Console.Clear();
                 Algorithm.PrintMaze(Players);
 
-                AnsiConsole.MarkupLine($"[bold]Jugador actual: {Players[1].Symbol}\t\tJugadas restantes: {Players[1].MovesLeft}\t\tCD Habilidad: {Players[1].CD}[/]");
-                if (Players[1].CD == 0) AnsiConsole.MarkupLine("Habilidad Disponible!!");
+                AnsiConsole.MarkupLine($"[bold steelblue]Jugador actual: {Players[1].Symbol}\t\tJugadas restantes: {Players[1].MovesLeft}\t\tCD Habilidad: {Players[1].CD}[/]\n");
+                if (Players[1].CD == 0) AnsiConsole.MarkupLine("[bold red]Habilidad Disponible!![/]\n");
 
                 Menu.PrintHealthBar(Players, 1);
-                AnsiConsole.MarkupLine("[dim]NOTA: Presiona [blue]<Enter>[/] para usar tu habilidad o [blue]<Barra Espaciadora>[/] para romper un obstaculo[/]");
-                AnsiConsole.MarkupLine($"[bold]Atributos:[/]\n[bold red]Fuerza - {Players[1].Strength}[/]\n[bold green]Agilidad - {Players[1].Agility}[/]\n[bold blue]Inteligencia - {Players[1].Intellect}[/]");
+                AnsiConsole.MarkupLine($"\n[bold steelblue]Atributos:[/]\n[bold red]Fuerza - {Players[1].Strength}[/]\n[bold green]Agilidad - {Players[1].Agility}[/]\n[bold blue]Inteligencia - {Players[1].Intellect}[/]\n");
+                AnsiConsole.MarkupLine("[dim]NOTA: Presiona [magenta]<Enter>[/] para usar tu habilidad o [magenta]<Barra Espaciadora>[/] para romper un obstáculo[/]");
                 pressedKey = Console.ReadKey(true);
                 Map.MovePlayer(pressedKey.Key, Players[1].Xpos, Players[1].Ypos, 1, Players, coolDowns, Algorithm.maze);
             }
@@ -99,3 +100,4 @@ public class Program
   
     }
 }
+
