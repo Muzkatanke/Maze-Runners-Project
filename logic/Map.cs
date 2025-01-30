@@ -45,7 +45,6 @@ public class Map
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.OilTrap && Players[currentPlayer].Agility < 5)
          {
             Players[currentPlayer].Speed = 1;
-            AnsiConsole.MarkupLine("Oh oh, caiste en una trampa de aceite, tu velocidad ahora solo es de 1");
          }
 
          if (maze[newCurrentPlayerXpos, newCurrentPlayerYpos] == Cell.BurstTrap && Players[currentPlayer].Strength < 5)
@@ -190,7 +189,7 @@ public class Map
             else
             {
                AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
-               Players[currentPlayer].Health -= 15;
+               Players[currentPlayer].Health -= 25;
                Players[currentPlayer].Speed -= 1;
             }
             break;
@@ -220,7 +219,7 @@ public class Map
             else
             {
                AnsiConsole.MarkupLine("[bold red]Ups... incorrecto[/]");
-               Players[currentPlayer].Health -= 15;
+               Players[currentPlayer].Health -= 25;
                Players[currentPlayer].Speed -= 1;
             }
             break;
