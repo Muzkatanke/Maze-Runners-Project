@@ -38,6 +38,7 @@ public class Program
 
         Algorithm.InitializeMaze();
         Algorithm.GenerateMaze(1, 1);
+        Algorithm.PlaceThroneAtEnd(Algorithm.maze, 1, 1);
         Algorithm.PlacingElements(10, 15, 20);
         
         

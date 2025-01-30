@@ -78,7 +78,7 @@ public class Menu
         table.AddRow(new Markup("[bold underline blue]Introducción[/]"), new Markup(
             "¡Bienvenido a [italic gold3]Maze of Thrones[/]! En este emocionante juego de estrategia y aventura, " +
             "inspirado en la aclamada serie [italic]Game of Thrones[/], tendrás la oportunidad " +
-            "de elegir entre varios personajes icónicos, cada uno con habilidades únicas." +
+            "de elegir entre varios personajes icónicos, cada uno con habilidades únicas. " +
             "Sé el primero en llegar al Trono de Hierro y reclama tu lugar como el gobernante supremo.\n"));
 
 
@@ -208,12 +208,12 @@ public class Menu
         Console.Clear();
         List<string> characters = new List<string>
         {
-            "[italic grey69]Winterfell's Bastard[/] [bold black][underline]Jon Snow[/][/] 🐺\n",
-            "[italic grey69]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/] 🦁\n",
-            "[italic grey69]The Blind Child[/] [bold blue][underline]Arya Stark[/][/] 🎭\n",
-            "[italic grey69]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/] 🦌\n",
-            "[italic grey69]The First White Walker[/] [bold white][underline]El Rey de la Noche[/][/] 💀\n",
-            "[italic grey69]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲\n",
+            "[italic grey7]Winterfell's Bastard[/] [bold black][underline]Jon Snow[/][/] 🐺\n",
+            "[italic grey7]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/] 🦁\n",
+            "[italic grey7]The Blind Child[/] [bold blue][underline]Arya Stark[/][/] 🎭\n",
+            "[italic grey7]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/] 🦌\n",
+            "[italic grey7]The First White Walker[/] [bold white][underline]El Rey de la Noche[/][/] 💀\n",
+            "[italic grey7]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲\n",
         };
 
         var characterSelection1 = AnsiConsole.Prompt(
@@ -244,50 +244,45 @@ public class Menu
 
         switch (characterSelection1)
         {
-            case "[italic grey69]Winterfell's Bastard[/] [bold black][underline]Jon Snow[/][/] 🐺\n":
+            case "[italic grey7]Winterfell's Bastard[/] [bold black][underline]Jon Snow[/][/] 🐺\n":
                 Program.Players.Add(Program.Snow);
                 break;
-            case "[italic grey69]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/] 🦁\n":
+            case "[italic grey7]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/] 🦁\n":
                 Program.Players.Add(Program.Tyrion);
                 break;
-            case "[italic grey69]The Blind Child[/] [bold blue][underline]Arya Stark[/][/] 🎭\n":
+            case "[italic grey7]The Blind Child[/] [bold blue][underline]Arya Stark[/][/] 🎭\n":
                 Program.Players.Add(Program.Arya);
                 break;
-            case "[italic grey69]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/] 🦌\n":
+            case "[italic grey7]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/] 🦌\n":
                 Program.Players.Add(Program.Robert);
                 break;
-            case "[italic grey69]The First White Walker[/] [bold white][underline]El Rey de la Noche[/][/] 💀\n":
+            case "[italic grey7]The First White Walker[/] [bold white][underline]El Rey de la Noche[/][/] 💀\n":
                 Program.Players.Add(Program.NightKing);
                 break;
-            case "[italic grey69]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲":
+            case "[italic grey7]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲\n":
                 Program.Players.Add(Program.Daenerys);
-                break;
-            case "🔙[bold steelblue] Atras[/]":
-                PrintMainMenu();
                 break;
         }
         switch (characterSelection2)
         {
-            case "[italic grey69]Winterfell's Bastard[/] [bold black][underline]Jon Snow[/][/] 🐺\n":
+            case "[italic grey7]Winterfell's Bastard[/] [bold black][underline]Jon Snow[/][/] 🐺\n":
                 Program.Players.Add(Program.Snow);
                 break;
-            case "[italic grey69]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/] 🦁\n":
+            case "[italic grey7]King's Hand[/] [bold gold1][underline]Tyrion Lannister[/][/] 🦁\n":
                 Program.Players.Add(Program.Tyrion);
                 break;
-            case "[italic grey69]The Blind Child[/] [bold blue][underline]Arya Stark[/][/] 🎭\n":
+            case "[italic grey7]The Blind Child[/] [bold blue][underline]Arya Stark[/][/] 🎭\n":
                 Program.Players.Add(Program.Arya);
                 break;
-            case "[italic grey69]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/] 🦌\n":
+
+            case "[italic grey7]The Usurper[/] [bold yellow][underline]Robert Baratheon[/][/] 🦌\n":
                 Program.Players.Add(Program.Robert);
                 break;
-            case "[italic grey69]The First White Walker[/] [bold white][underline]El Rey de la Noche[/][/] 💀\n":
+            case "[italic grey7]The First White Walker[/] [bold white][underline]El Rey de la Noche[/][/] 💀\n":
                 Program.Players.Add(Program.NightKing);
                 break;
-            case "[italic grey69]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲":
+            case "[italic grey7]The First of Her Name, Breaker of Chains, Mother of Dragons (...)[/] [bold red][underline] Daenerys Targaryen[/][/] 🐲\n":
                 Program.Players.Add(Program.Daenerys);
-                break;
-            case "🔙[bold steelblue] Atras[/]":
-                PrintMainMenu();
                 break;
         }
     }

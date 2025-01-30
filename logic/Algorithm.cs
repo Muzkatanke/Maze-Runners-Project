@@ -36,7 +36,7 @@ public class Algorithm
                 maze[i, j] = Cell.Wall;
             }
         }
-        
+
     }
 
     public static void GenerateMaze(int PosX, int PosY)
@@ -61,8 +61,54 @@ public class Algorithm
                 GenerateMaze(newPosX, newPosY);
             }
         }
-        
-        
+    }
+
+    public static (int, int) BFS(Cell[,] maze, int PosX, int PosY)
+    {
+        int rows = maze.GetLength(0);
+        int cols = maze.GetLength(1);
+
+        bool[,] visited = new bool[rows, cols];
+
+        Queue<(int, int)> queue = new Queue<(int, int)>();
+        queue.Enqueue((PosX, PosY));
+        visited[PosX, PosY] = true;
+
+        List<(int, int)> directions = new List<(int, int)>
+        {
+            (-1, 0), 
+            (1, 0),  
+            (0, -1), 
+            (0, 1)
+        };
+
+        (int, int) lastPosition = (PosX, PosY);
+
+        while (queue.Count > 0)
+        {
+            var (x, y) = queue.Dequeue();
+
+            lastPosition = (x, y);
+
+            foreach (var (dx, dy) in directions)
+            {
+                int newX = x + dx;
+                int newY = y + dy;
+
+                if (newX >= 0 && newX < rows && newY >= 0 && newY < cols && maze[newX, newY] == Cell.Floor && !visited[newX, newY])
+                {
+                    queue.Enqueue((newX, newY));
+                    visited[newX, newY] = true;
+                }
+            }
+        }
+        return lastPosition;
+    }
+
+    public static void PlaceThroneAtEnd(Cell[,] maze, int startX, int startY)
+    {
+        var (endX, endY) = BFS(maze, startX, startY);
+        maze[endX, endY] = Cell.Throne;
     }
 
     public static void PlacingElements(int numbObstacles, int numbWines, int numbTraps)
@@ -71,44 +117,44 @@ public class Algorithm
         int rows = maze.GetLength(0);
         int cols = maze.GetLength(1);
 
-        for(int i = 0; i < numbObstacles; i++)
+        for (int i = 0; i < numbObstacles; i++)
         {
             int PosX = random.Next(1, rows - 1);
             int PosY = random.Next(1, cols - 1);
 
-            if(maze[PosX, PosY] != Cell.Throne)
+            if (maze[PosX, PosY] != Cell.Throne)
             {
                 maze[PosX, PosY] = Cell.BricksObstacle;
             }
         }
 
-        Cell[] traps = {Cell.OilTrap, Cell.RiddleTrap, Cell.BurstTrap};
+        Cell[] traps = { Cell.OilTrap, Cell.RiddleTrap, Cell.BurstTrap };
 
-        for(int i = 0; i < numbTraps; i++)
+        for (int i = 0; i < numbTraps; i++)
         {
             int PosX = random.Next(1, rows - 1);
             int PosY = random.Next(1, cols - 1);
 
-            if(maze[PosX, PosY] != Cell.Wall && maze[PosX, PosY] != Cell.Throne)
+            if (maze[PosX, PosY] != Cell.Wall && maze[PosX, PosY] != Cell.Throne)
             {
                 maze[PosX, PosY] = traps[random.Next(0, 3)];
             }
         }
 
-        Cell[] wines = {Cell.ArborGold, Cell.DornishRed};
+        Cell[] wines = { Cell.ArborGold, Cell.DornishRed };
 
-        for(int i = 0; i < numbWines; i++)
+        for (int i = 0; i < numbWines; i++)
         {
             int PosX = random.Next(1, rows - 1);
             int PosY = random.Next(1, cols - 1);
 
-            if(maze[PosX, PosY] != Cell.Wall && maze[PosX, PosY] != Cell.Throne)
+            if (maze[PosX, PosY] != Cell.Wall && maze[PosX, PosY] != Cell.Throne)
             {
                 maze[PosX, PosY] = wines[random.Next(0, 2)];
             }
         }
     }
-    
+
     public static void RemoveWall(int PosX, int PosY, int newPosX, int newPosY)
     {
         if (newPosX == PosX && newPosY == PosY + 2)
@@ -137,8 +183,8 @@ public class Algorithm
 
     public static void PrintMaze(List<Player> Players)
     {
-        maze[maze.GetLength(0) - 2, maze.GetLength(1) - 2] = Cell.Throne;
-        
+
+
         Console.Clear();
 
 
