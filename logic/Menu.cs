@@ -42,7 +42,7 @@ public class Menu
         {
             "[bold steelblue]Elegir tamaño del mapa[/]\n",
             "[bold steelblue]Leer las instrucciones[/]\n",
-            "[bold steelblue]🔙 Atras[/]",
+            "🔙[bold steelblue] Atras[/]",
         };
 
         var selection = AnsiConsole.Prompt(
@@ -55,6 +55,7 @@ public class Menu
         {
             case "[bold steelblue]Elegir tamaño del mapa[/]\n":
                 PrintMapSelectorMenu();
+                
                 break;
             case "[bold steelblue]Leer las instrucciones[/]\n":
                 PrintInstructionsMenu();
@@ -86,7 +87,7 @@ public class Menu
             "[bold underline grey]Jon Snow 🐺:[/] [italic cyan](Longclaw)[/], ejecuta un ataque de 360 grados.\n" +
             "[bold underline gold1]Tyrion Lannister 🦁:[/] [italic cyan](WizardTyrion)[/], crea vinos especiales que aumentan sus capacidades.\n" +
             "[bold underline darkred]Daenerys Targaryen 🐲:[/] [italic cyan](Mother of Dragons)[/], se convierte en un imponente dragón.\n" +
-            "[bold underline white]Arya Stark 🎭:[/] [italic cyan](Insight)[/], desarma trampas que a su alrededor.\n" +
+            "[bold underline white]Arya Stark 🎭:[/] [italic cyan](Insight)[/], desarma trampas a su alrededor.\n" +
             "[bold underline yellow]Robert Baratheon 🦌:[/] [italic cyan](Deer Vigor)[/], le permite curarse y aumentar su velocidad.\n" +
             "[bold underline teal]El Rey de la Noche 💀:[/] [italic cyan](Curse)[/], maldice a los enemigos en cualquier parte del mapa.\n"));
 
@@ -99,19 +100,19 @@ public class Menu
         table.AddRow(new Markup("[bold underline blue]Elementos del Mapa[/]"), new Markup(
             "[bold underline]Trampas:[/]\n" +
             " - [red]Explosión (🔥):[/] Disminuye tu vida al pasar sobre ella (-40).\n" +
-            " - [red]Acertijo (🧩):[/] Adivinanza que te pondrá a prueba. Si fallas, sufriras daño (-15) y ralentización (-1).\n" +
+            " - [red]Acertijo (🧩):[/] Adivinanza que te pondrá a prueba. Si fallas, sufrirás daño (-15) y ralentización (-1).\n" +
             " - [red]Aceite (♨️ ):[/] Reduce tu velocidad de movimiento al mínimo (1).\n" +
             "[bold underline]Obstáculos:[/]\n" +
             " - [grey]Ladrillos (🧱):[/] Destructibles y pueden abrir atajos.\n" +
             "[bold underline]Beneficios:[/]\n" +
             " - [green]Dornish Red (🍷):[/] Otorga velocidad adicional (+1) y aumenta tu agilidad al máximo (5).\n" +
-            " - [green]Arbor Gold (🍸):[/] Otorga una curacion (+10) y aumenta tu inteligencia al máximo (5).\n"));
+            " - [green]Arbor Gold (🍸):[/] Otorga una curación (+10) y aumenta tu inteligencia al máximo (5).\n"));
 
 
         table.AddRow(new Markup("[bold underline blue]Mecánica del Juego[/]"), new Markup(
             "[bold underline]Desarrollo del Juego por Turnos:[/]\n" +
             " - Movimiento: Usa las [bold yellow]flechas del teclado[/] para moverte.\n" +
-            " - Atributos: Existe atributos como [red]Fuerza[/], [green]Agilidad[/] e [blue]Inteligencia[/], que determinan si eres capaz de evitar una trampa o no.\n" +
+            " - Atributos: Existen atributos como [red]Fuerza[/], [green]Agilidad[/] e [blue]Inteligencia[/], que determinan si eres capaz de evitar una trampa o no.\n" +
             " - Acciones: Rompe obstáculos ([bold magenta]Space[/]) o activa habilidades ([bold magenta]Enter[/]).\n" +
             " - Acciones por Turno: Basadas en las características del personaje, habrá una [italic yellow]X[/] cantidad de movimientos para ejecutar en cada turno.\n"));
 
@@ -337,10 +338,17 @@ public class Menu
 
     public static void TurnOnTheMusic(string musicRoute)
     {
-        Program.waveOutDevice = new WaveOutEvent();
-        Program.audioFileReader = new AudioFileReader(musicRoute);
-        Program.waveOutDevice.Init(Program.audioFileReader);
-        Program.waveOutDevice.Play();
+        do
+        {
+            Program.waveOutDevice = new WaveOutEvent();
+            Program.audioFileReader = new AudioFileReader(musicRoute);
+            Program.waveOutDevice.Init(Program.audioFileReader);
+            Program.waveOutDevice.Play();
+
+            Thread.Sleep(122000);
+        }while (true);
+
+
     }
 
 }

@@ -182,10 +182,7 @@ public class Algorithm
 
     public static void PrintMaze(List<Player> Players)
     {
-
-
         Console.Clear();
-
 
         int rows = maze.GetLength(0);
         int cols = maze.GetLength(1);

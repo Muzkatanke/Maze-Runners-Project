@@ -94,9 +94,9 @@ public class Skills
     }
     public static void MotherOfDragons(int currentPlayer, List<Player> Players)
     {
-        Players[currentPlayer].Symbol = "🐉";
+        Players[currentPlayer].Symbol = "🐉 ";
         Players[currentPlayer].Health = 1000;
-        Players[currentPlayer].Speed = 6;
+        Players[currentPlayer].Speed = 12;
         Players[currentPlayer].MovesLeft = Players[currentPlayer].Speed;
 
     }
